@@ -1,0 +1,24 @@
+{
+  "name": "utube",
+  "version": "1.0.0",
+  "description": "YouTube clone",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dferes/UTube.git"
+  },
+  "author": "Dylan Feres",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dferes/UTube/issues"
+  },
+  "homepage": "https://github.com/dferes/UTube#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^10.0.0",
+    "pg": "^8.6.0"
+  }
+}
