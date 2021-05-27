@@ -6,12 +6,12 @@ DROP TABLE IF EXISTS Videos;
 DROP TABLE IF EXISTS Users;
 
 CREATE TABLE Users (
-  username varchar(15) PRIMARY KEY,
+  username varchar(20) PRIMARY KEY,
   password TEXT NOT NULL,  
   created_at timestamp NOT NULL DEFAULT NOW(),
-  first_name varchar(20) NOT NULL,
-  last_name varchar(20) NOT NULL,
-  email varchar(25) NOT NULL 
+  first_name TEXT NOT NULL,
+  last_name TEXT NOT NULL,
+  email TEXT NOT NULL 
     CHECK (position('@' IN email) > 1),
   avatar_image TEXT,
   cover_image TEXT,
@@ -22,7 +22,7 @@ CREATE TABLE Videos (
   id SERIAL PRIMARY KEY,
   created_at timestamp NOT NULL DEFAULT NOW(),
   title varchar(50) NOT NULL,
-  username varchar(15) NOT NULL
+  username varchar(20) NOT NULL
     REFERENCES Users ON DELETE CASCADE,
   url TEXT NOT NULL UNIQUE,
   thumbnail_image TEXT,
@@ -32,7 +32,7 @@ CREATE TABLE Videos (
 CREATE TABLE Comments (
   id SERIAL PRIMARY KEY,
   created_at timestamp NOT NULL DEFAULT NOW(),
-  username varchar(15) NOT NULL
+  username varchar(20) NOT NULL
     REFERENCES Users ON DELETE CASCADE,
   video_id INTEGER NOT NULL
     REFERENCES Videos ON DELETE CASCADE,
@@ -43,9 +43,9 @@ CREATE TABLE Comments (
 CREATE TABLE Subscriptions (
   id SERIAL,  
   created_at timestamp NOT NULL DEFAULT NOW(),
-  subscriber_username varchar(15) NOT NULL
+  subscriber_username varchar(20) NOT NULL
     REFERENCES Users ON DELETE CASCADE,
-  subscribed_to_username varchar(15) NOT NULL
+  subscribed_to_username varchar(20) NOT NULL
     REFERENCES Users ON DELETE CASCADE,
   PRIMARY KEY (subscriber_username, subscribed_to_username)   
 );
@@ -54,7 +54,7 @@ CREATE TABLE Subscriptions (
 CREATE TABLE VideoLikes (
   id SERIAL,  
   created_at timestamp NOT NULL DEFAULT NOW(),
-  username varchar(15) NOT NULL 
+  username varchar(20) NOT NULL 
     REFERENCES Users ON DELETE CASCADE,
   video_id INTEGER NOT NULL
     REFERENCES Videos ON DELETE CASCADE,
@@ -64,7 +64,7 @@ CREATE TABLE VideoLikes (
 CREATE TABLE Views (
   id SERIAL PRIMARY KEY,
   created_at timestamp NOT NULL DEFAULT NOW(),
-  username varchar(15) NOT NULL 
+  username varchar(20) NOT NULL 
     REFERENCES Users ON DELETE CASCADE,
   video_id INTEGER NOT NULL
     REFERENCES Videos ON DELETE CASCADE    
