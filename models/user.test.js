@@ -8,13 +8,7 @@ const {
   commonBeforeAll,
   commonBeforeEach,
   commonAfterEach,
-  commonAfterAll,
-  testUserUsernames,
-  testVideoIds,
-  testVideoLikeIds,
-  testSubscriptionIds,
-  testCommentIds,
-  testViewIds,
+  commonAfterAll
 } = require("./_testCommonSetup");
 
 beforeAll(commonBeforeAll);
@@ -235,7 +229,7 @@ describe("update", function () {
     }
   });
 
-  test("bad request if no data", async function () {
+  test("throws a BadRequestError if no data is provided", async () => {
     expect.assertions(1);
     try {
       await User.update("testingUser1", {});
@@ -248,7 +242,7 @@ describe("update", function () {
 
 // /************************************** remove */
 
-describe("successfuly removes a user when a valild username is passed", () => {
+describe("successfully removes a user when a valid username is passed", () => {
   test("works", async function () {
     await User.remove("testingUser1");
     const res = await db.query(
