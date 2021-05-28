@@ -1,7 +1,6 @@
 'use strict';
 
 const db = require('../db');
-const { sqlForPartialUpdate } = require("../utility_functions/sqlUpdates");
 const { NotFoundError, BadRequestError } = require('../expressError');
 
 class Subscription {
@@ -54,8 +53,8 @@ class Subscription {
     }
     
     let conditinalSQLInsert = { 
-        subscriberUsername: ` WHERE subscriberUsername='${filter? filter.subscriberUsername : null}'`, 
-        subscribedToUsername: ` WHERE video_id='${filter? filter.subscribedToUsername : null}'`
+        subscriberUsername: ` WHERE subscriber_username='${filter? filter.subscriberUsername : null}'`, 
+        subscribedToUsername: ` WHERE subscribed_to_username='${filter? filter.subscribedToUsername : null}'`
     };
 
     let searchQuery =
