@@ -1,11 +1,10 @@
 'use strict';
 
 const db = require('../db');
-const bcrypt = require('bcrypt');
 const { sqlForPartialUpdate } = require("../utility_functions/sqlUpdates");
-const { NotFoundError, BadRequestError, UnauthorizedError } = require('../expressError');
+const { NotFoundError, BadRequestError } = require('../expressError');
 
-class Comment {
+class Video {
 
   /** Creates a new video with the data: 
    *  { title, url, description, username}
@@ -201,4 +200,4 @@ class Comment {
 
 }
 
-module.exports = Comment;
+module.exports = Video;
