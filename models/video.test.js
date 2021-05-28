@@ -1,6 +1,6 @@
 "use strict";
 
-const { NotFoundError, BadRequestError, UnauthorizedError} = require("../expressError");
+const { NotFoundError, BadRequestError} = require("../expressError");
 const db = require("../db.js");
 const Video = require("./video.js");
 
@@ -8,12 +8,7 @@ const {
   commonBeforeAll,
   commonBeforeEach,
   commonAfterEach,
-  commonAfterAll,
-  testUserUsernames,
-  testVideoLikeIds,
-  testSubscriptionIds,
-  testCommentIds,
-  testViewIds,
+  commonAfterAll
 } = require("./_testCommonSetup");
 
 beforeAll(commonBeforeAll);
@@ -237,8 +232,8 @@ describe("update", () => {
 });
 
 /************************************** remove */
-describe("successfully removes a video when a valid id is passed", () => {
-  test("works", async () => {
+describe("remove", () => {
+  test("successfully removes a video when a valid id is passed", async () => {
     let testVideoIdsResult = await db.query(`SELECT id FROM videos ORDER BY id`);
     let testVideoIds = testVideoIdsResult.rows.map( obj => obj.id);
     const video1Id = testVideoIds[0];

@@ -242,8 +242,8 @@ describe("update", function () {
 
 // /************************************** remove */
 
-describe("successfully removes a user when a valid username is passed", () => {
-  test("works", async function () {
+describe("remove", () => {
+  test("successfully removes a user when a valid username is passed", async function () {
     await User.remove("testingUser1");
     const res = await db.query(
         "SELECT * FROM users WHERE username='testingUser1'");
