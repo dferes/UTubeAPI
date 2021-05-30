@@ -196,7 +196,6 @@ describe("unlike", () => {
   });
 
   test("throws NotFoundError if the (username, videoId) passed is not found", async () => {
-    let videoIds = await getVideosIds();  
     try {
       await VideoLike.unlike({
         username: 'testingUser1',
