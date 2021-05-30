@@ -12,8 +12,8 @@ class Comment {
    *  Returns: 
    *  { id, created_at, username, video_id, content }
    */
-   static async create(contentData) {
-    const { username, videoId, content } = contentData;
+   static async create(commentData) {
+    const { username, videoId, content } = commentData;
 
     const result = await db.query(
       `INSERT INTO comments ( 
