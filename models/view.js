@@ -14,6 +14,15 @@ class View {
    static async create(viewData) {
     const { username, videoId } = viewData;
 
+    const usernameCheck = await db.query(
+      `SELECT * FROM users WHERE username=$1`, [username]);
+    const videoIdCheck = await db.query(
+      `SELECT * FROM videos WHERE id=$1`, [videoId]);
+
+    if(!usernameCheck.rows.length || !videoIdCheck.rows.length) {
+      throw new NotFoundError('video id or username invalid.');
+    }  
+
     const result = await db.query(
       `INSERT INTO views ( 
         username, 
@@ -54,7 +63,7 @@ class View {
         id,
         created_at AS "createdAt",
         username,
-        video_id AS "videoId",
+        video_id AS "videoId"
       FROM views`;  
 
     if(filter.username) searchQuery += conditinalSQLInsert.username;
