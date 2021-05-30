@@ -13,6 +13,22 @@ class VideoLike {
    */
    static async create(likeData) {
     const { username, videoId } = likeData;
+    
+    const usernameCheck = await db.query(
+      `SELECT * FROM users WHERE username=$1`, [username]);
+    const videoIdCheck = await db.query(
+      `SELECT * FROM videos WHERE id=$1`, [videoId]);
+
+    if(!usernameCheck.rows.length || !videoIdCheck.rows.length) {
+      throw new NotFoundError('video id and username invalid.');
+    }  
+
+    const dupCheck = await db.query(
+      `SELECT * FROM videoLikes
+      WHERE username=$1 AND video_id=$2`,
+      [username, videoId]);
+    
+    if(dupCheck.rows.length) throw new BadRequestError('This video like already exists!');  
 
     const result = await db.query(
       `INSERT INTO videoLikes ( 
@@ -54,13 +70,13 @@ class VideoLike {
         id,
         created_at AS "createdAt",
         username,
-        video_id AS "videoId",
+        video_id AS "videoId"
       FROM videoLikes`;  
 
     if(filter.username) searchQuery += conditinalSQLInsert.username;
     else if (filter.videoId) searchQuery += conditinalSQLInsert.videoId;
     searchQuery += '\nORDER BY created_at\nLIMIT 500';
-      
+
     const result = await db.query(searchQuery);
     return result.rows;
   }
