@@ -12,7 +12,23 @@ class Subscription {
    *  { id, created_at, subscriber_usernmae, subscribed_to_username }
    */
    static async create(subData) {
-    const { subscriber_username, subscribed_to_username } = subData;
+    const { subscriberUsername, subscribedToUsername } = subData;
+
+    const subscriberCheck = await db.query(
+      `SELECT * FROM users WHERE username=$1`, [subscriberUsername]);
+    const subscribedToCheck = await db.query(
+      `SELECT * FROM users WHERE username=$1`, [subscribedToUsername]);
+
+    if(!subscriberCheck.rows.length || !subscribedToCheck.rows.length) {
+      throw new NotFoundError('Both users must already exist!');
+    }  
+
+    const dupCheck = await db.query(
+      `SELECT * FROM subscriptions
+      WHERE subscriber_username=$1 AND subscribed_to_username=$2`,
+      [subscriberUsername, subscribedToUsername]);
+    
+    if(dupCheck.rows.length) throw new BadRequestError('This subscription already exists!');  
 
     const result = await db.query(
       `INSERT INTO subscriptions ( 
@@ -20,8 +36,11 @@ class Subscription {
         subscribed_to_username)
       VALUES ($1,$2)
       RETURNING 
-        id, created_at AS "createdAt", subscriber_username, subscribed_to_username`,
-      [subscriber_username, subscribed_to_username]  
+        id, 
+        created_at AS "createdAt", 
+        subscriber_username AS "subscriberUsername", 
+        subscribed_to_username AS "subscribedToUsername"`,
+      [subscriberUsername, subscribedToUsername]  
     );
     const subscription = result.rows[0];
 
@@ -62,8 +81,8 @@ class Subscription {
         id,
         created_at AS "createdAt",
         subscriber_username AS "subscriberUsername",
-        subscribed_to_username AS "subscribedToUsername",
-      FROM subscription`;  
+        subscribed_to_username AS "subscribedToUsername"
+      FROM subscriptions`;  
 
     if(filter.subscriberUsername) searchQuery += conditinalSQLInsert.subscriberUsername;
     else if (filter.subscribedToUsername) searchQuery += conditinalSQLInsert.subscribedToUsername;
@@ -86,7 +105,7 @@ class Subscription {
         RETURNING id`,
       [subscriberUsername, subscribedToUsername],
     );
-    const subscriptions = result.rows[0];
+    const subscription = result.rows[0];
     
     if (!subscription) throw new NotFoundError(`No subscription found`);
   }
