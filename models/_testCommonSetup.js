@@ -61,8 +61,7 @@ async function commonBeforeAll() {
   
   const subscriptionResults = await db.query(`
     INSERT INTO subscriptions(subscriber_username, subscribed_to_username)
-    VALUES ('testingUser1', 'testingUser2'),
-           ('testingUser1', 'testingUser3'),
+    VALUES ('testingUser1', 'testingUser3'),
            ('testingUser2', 'testingUser1'),
            ('testingUser2', 'testingUser3'),
            ('testingUser3', 'testingUser1'),
