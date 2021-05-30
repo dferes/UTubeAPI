@@ -8,8 +8,7 @@ const {
   commonBeforeAll,
   commonBeforeEach,
   commonAfterEach,
-  commonAfterAll,
-  testVideoIds
+  commonAfterAll
 } = require("./_testCommonSetup");
 
 beforeAll(commonBeforeAll);
