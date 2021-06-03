@@ -1,0 +1,32 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "properties": {
+      "firstName": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30
+      },
+      "lastName": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 30
+      },
+      "avatarImage": {
+        "type": "string",
+        "minLength": 13
+      },
+      "coverImage": {
+        "type": "string",
+        "minLength": 13
+      },
+      "about": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "additionalProperties": false,
+    "required": []
+  }
+  
