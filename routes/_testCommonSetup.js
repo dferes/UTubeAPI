@@ -1,10 +1,10 @@
 "use strict";
 
 const db = require("../db.js");
-// const Video = require("../models/video");
+const Video = require("../models/video");
 // const Comment = require("../models/comment");
 const User = require("../models/user");
-// const Subscription = require('../models/subscription')
+const Subscription = require('../models/subscription')
 // const View = require('../models/view');
 // const VideoLike = require('../models/videoLike.js');
 
@@ -44,6 +44,22 @@ async function commonBeforeAll() {
     email: 'user3@gmail.com'
   });
  
+  await Subscription.create({subscriberUsername: 'testingUser1', subscribedToUsername: 'testingUser2'});
+  await Subscription.create({subscriberUsername: 'testingUser2', subscribedToUsername: 'testingUser1'});
+  await Subscription.create({subscriberUsername: 'testingUser3', subscribedToUsername: 'testingUser1'});
+
+  await Video.create({ 
+    title: 'First Video',
+    url: 'https://google.com/video-1.mp4',
+    description: 'A video I made',
+    username: 'testingUser1'
+  });
+  await Video.create({ 
+    title: 'Second Video',
+    url: 'https://google.com/video-2.mp4',
+    description: 'Another video I made',
+    username: 'testingUser1'
+  });
 }
 
 async function commonBeforeEach() {
