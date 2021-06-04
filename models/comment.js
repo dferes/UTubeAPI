@@ -15,6 +15,22 @@ class Comment {
    static async create(commentData) {
     const { username, videoId, content } = commentData;
 
+    const userCheck = await db.query(`
+      SELECT * FROM users
+      WHERE username=$1`,
+      [username]);
+    const user = userCheck.rows;
+    
+    if(!user.length) throw new NotFoundError(`No user with username: ${username} found`);  
+
+    const videoCheck = await db.query(`
+      SELECT * FROM videos
+      WHERE id=$1`,
+      [videoId]);
+    const video = videoCheck.rows;
+
+    if(!video.length) throw new NotFoundError(`No video with id: ${videoId} found`);  
+
     const result = await db.query(
       `INSERT INTO comments ( 
         username, 
