@@ -3,7 +3,6 @@
 const db = require("../db.js");
 const app = require("../app");
 const request = require("supertest");
-const User = require("../models/user");
 
 const {
   commonBeforeAll,
@@ -11,8 +10,7 @@ const {
   commonAfterEach,
   commonAfterAll,
   u1Token,
-  u2Token,
-  adminToken,
+  u2Token
 } = require("./_testCommonSetup");
 
 beforeAll(commonBeforeAll);
