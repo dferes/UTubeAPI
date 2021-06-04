@@ -2,7 +2,7 @@
 
 const db = require("../db.js");
 const Video = require("../models/video");
-// const Comment = require("../models/comment");
+const Comment = require("../models/comment");
 const User = require("../models/user");
 const Subscription = require('../models/subscription')
 // const View = require('../models/view');
@@ -48,17 +48,42 @@ async function commonBeforeAll() {
   await Subscription.create({subscriberUsername: 'testingUser2', subscribedToUsername: 'testingUser1'});
   await Subscription.create({subscriberUsername: 'testingUser3', subscribedToUsername: 'testingUser1'});
 
-  await Video.create({ 
+  const video1 = await Video.create({ 
     title: 'First Video',
     url: 'https://google.com/video-1.mp4',
     description: 'A video I made',
     username: 'testingUser1'
   });
-  await Video.create({ 
+
+  const video2 = await Video.create({ 
     title: 'Second Video',
     url: 'https://google.com/video-2.mp4',
     description: 'Another video I made',
     username: 'testingUser1'
+  });
+
+  await Comment.create({ 
+    username: 'testingUser1',
+    videoId:  video1.id,
+    content: 'This is my first comment'
+  });
+
+  await Comment.create({ 
+    username: 'testingUser1',
+    videoId:  video1.id,
+    content: 'This is my second comment'
+  });
+
+  await Comment.create({ 
+    username: 'testingUser1',
+    videoId:  video2.id,
+    content: 'blah blah blah this is a comment'
+  });
+
+  await Comment.create({ 
+    username: 'testingUser2',
+    videoId:  video1.id,
+    content: 'Oh look, another comment'
   });
 }
 
