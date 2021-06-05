@@ -19,9 +19,8 @@ class VideoLike {
     const videoIdCheck = await db.query(
       `SELECT * FROM videos WHERE id=$1`, [videoId]);
 
-    if(!usernameCheck.rows.length || !videoIdCheck.rows.length) {
-      throw new NotFoundError('video id and username invalid.');
-    }  
+    if( !usernameCheck.rows.length ) throw new NotFoundError('Invalid username.');
+    if( !videoIdCheck.rows.length ) throw new NotFoundError('Invalid video id.');
 
     const dupCheck = await db.query(
       `SELECT * FROM videoLikes
