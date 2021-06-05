@@ -45,6 +45,7 @@ async function commonBeforeAll() {
   });
  
   await Subscription.create({subscriberUsername: 'testingUser1', subscribedToUsername: 'testingUser2'});
+  await Subscription.create({subscriberUsername: 'testingUser3', subscribedToUsername: 'testingUser2'});
   await Subscription.create({subscriberUsername: 'testingUser2', subscribedToUsername: 'testingUser1'});
   await Subscription.create({subscriberUsername: 'testingUser3', subscribedToUsername: 'testingUser1'});
 
