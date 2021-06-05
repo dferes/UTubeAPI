@@ -128,7 +128,7 @@ describe("findAll", () => {
 
 /************************************** get */
 describe("get", () => {    
-  test("successfully retrieves video data when a alid video id is passed", async () => {
+  test("successfully retrieves video data when a valid video id is passed", async () => {
     let testVideoIdsResult = await db.query(`SELECT id FROM videos ORDER BY id`);
     let testVideoIds = testVideoIdsResult.rows.map( obj => obj.id);
 
@@ -153,14 +153,14 @@ describe("get", () => {
       testVideo2ViewsResult.rows.map( obj => obj.id);
 
     const testVideo2CommentsResult = await db.query(`
-      SELECT id, created_at AS "createdAt", username, content 
+      SELECT id, created_at AS "createdAt", username, content, video_id AS "videoId" 
       FROM comments
       WHERE video_id = $1`,
     [testVideoIds[1]]);
   
     let testVideo2Comments = testVideo2CommentsResult.rows;
     let video = await Video.get(testVideoIds[1]);
-    
+
     expect(video).toEqual({
       id: testVideoIds[1],
       createdAt: expect.any(Object),
