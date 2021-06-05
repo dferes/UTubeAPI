@@ -53,6 +53,9 @@ function ensureCorrectUser(req, res, next) {
     if (req.body.username && !(user && user.username === req.body.username)) {
       throw new UnauthorizedError();
     }
+    if (req.body.subscriberUsername && !(user && user.username === req.body.subscriberUsername)) {
+      throw new UnauthorizedError();
+    }
     return next();
   } catch (err) { return next(err);}
 }
