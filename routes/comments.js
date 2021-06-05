@@ -48,7 +48,7 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
 * If either videoId or username are provided, then Returns all 
 * comments relative to that search term.  
 *
-* Authorization required: same user-as: username  **/
+* Authorization required: None  **/
 router.get("/", async function (req, res, next) {
   try {
     const validator = jsonschema.validate(req.body, commentGetSchema);
