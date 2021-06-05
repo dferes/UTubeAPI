@@ -220,7 +220,7 @@ describe("GET /likes", () => {
 });
 
 
-/************************************** DELETE /likes/:videoId/:username */
+/************************************** DELETE /likes/ */
 describe("DELETE /likes/", () => {
   test(`can successfully delete a video like from the videoLikes table when the composite
     primary key (username, videoId) is valid and the token payload matches the video Like's 
