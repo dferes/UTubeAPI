@@ -14,12 +14,16 @@ class Video {
    */
    static async create(videoData) {
     const { title, url, description, username } = videoData;
+
     const dupCheck = await db.query(
       `SELECT url
       FROM videos
       WHERE url=$1`,
       [url]
     );
+
+    const userCheck = await db.query(`SELECT * FROM users WHERE username=$1`, [username]);
+    if(!userCheck.rows.length) throw new NotFoundError(`No user with username: ${username} found`); 
 
     if (dupCheck.rows[0]) throw new BadRequestError(`This video (url: ${url}) already exists!`);
 
@@ -34,9 +38,9 @@ class Video {
         id, created_at AS "createdAt", url, title, description, username, thumbnail_image AS "thumbnailImage"`,
       [title, url, description, username]  
     );
-    const user = result.rows[0];
+    const video = result.rows[0];
 
-    return user;
+    return video;
   }
 
 
@@ -129,7 +133,7 @@ class Video {
     );
     
     const commentsResult = await db.query(
-      `SELECT id, created_at AS "createdAt", username, content
+      `SELECT id, created_at AS "createdAt", username, content, video_id AS "videoId"
       FROM comments
       WHERE video_id = $1
       ORDER BY created_at`,
