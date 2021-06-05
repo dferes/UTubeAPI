@@ -70,6 +70,12 @@ class Subscription {
     if ( Object.keys(filter).length && !(filter.subscriberUsername || filter.subscribedToUsername) ){
       throw new BadRequestError("Filter must be either 'subscriberUsername' or 'subscribedToUsername'");  
     }
+    const filterVal = Object.values(filter);
+    const userCheck = await db.query(`SELECT * FROM users WHERE username=$1`, [filterVal[0]]);
+    
+    if(filterVal.length && !userCheck.rows.length) {
+      throw new NotFoundError(`No user with username: ${filterVal} found`);
+    }
     
     let conditinalSQLInsert = { 
         subscriberUsername: ` WHERE subscriber_username='${filter? filter.subscriberUsername : null}'`, 
