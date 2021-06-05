@@ -111,7 +111,7 @@ describe("POST /comments", () => {
   });
 });
 
-/************************************** GET /users */
+/************************************** GET /comments */
 describe("GET /comments", () => {
   test("retrieves a list of all comments in the comments table of the database", async () => {
     const videoIds = await getVideoIds();
@@ -238,7 +238,7 @@ describe("GET /comments", () => {
   });
 });
 
-/************************************** GET /users/:username */
+/************************************** GET /comments/:id */
 describe("GET /comments/:id", () => {
   test(`successfully retrieves comment data when a valid id is provided
     and when any user token is provided`, async () => {
@@ -270,8 +270,9 @@ describe("GET /comments/:id", () => {
 
   test(`throws a NotFoundError when the id does not exist`, async () => {
     const resp = await request(app)
-      .get(`/comments/-1`);
-    expect(resp.statusCode).toEqual(401);
+      .get(`/comments/-1`)
+      .set('authorization', `Bearer ${u1Token}`);
+    expect(resp.statusCode).toEqual(404);
   });
 });
 
