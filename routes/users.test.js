@@ -166,7 +166,7 @@ describe("GET /users/:username", () => {
         about: null,
         subscribers: ['testingUser2', 'testingUser3'],
         subscriptions: ['testingUser2'],
-        videos: videoIds
+        videos: [videoIds[0], videoIds[1]]
       }
     });
   });
