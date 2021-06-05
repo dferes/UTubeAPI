@@ -84,6 +84,7 @@ describe("ensureCorrectUser", () => {
     // Note that no JWT is passed or decoded here, no need for this test.  
     expect.assertions(1);
     const req = { params: { username: "testUser" } };
+    req.body = {};
     const res = { locals: { user: { username: "testUser" } } };
     const next = function (err) {
       expect(err).toBeFalsy();
@@ -91,7 +92,7 @@ describe("ensureCorrectUser", () => {
     ensureCorrectUser(req, res, next);
   });
 
-  test(`throws an UnauthorizedError when the username passed in the req body doesn't 
+  test(`throws an UnauthorizedError when the username passed in request.params doesn't 
     match the one in the JWT (in the response.locals)`, () => {
     expect.assertions(1);
     const req = { params: { username: "wrong" } };
@@ -103,7 +104,7 @@ describe("ensureCorrectUser", () => {
   });
 
   test(`throws an UnauthorizedError if there is no logged in user (if there is no JWT 
-      in respons.locals)`, () => {
+      in response.locals)`, () => {
     expect.assertions(1);
     const req = { params: { username: "test" } };
     const res = { locals: {} };
