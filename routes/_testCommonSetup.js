@@ -5,8 +5,8 @@ const Video = require("../models/video");
 const Comment = require("../models/comment");
 const User = require("../models/user");
 const Subscription = require('../models/subscription')
-// const View = require('../models/view');
-// const VideoLike = require('../models/videoLike.js');
+const View = require('../models/view');
+const VideoLike = require('../models/videoLike.js');
 
 const { makeToken } = require("../utility_functions/token");
 
@@ -62,6 +62,13 @@ async function commonBeforeAll() {
     username: 'testingUser1'
   });
 
+  await Video.create({ 
+    title: 'Look A Video',
+    url: 'https://google.com/video-3.mp4',
+    description: 'Just some video',
+    username: 'testingUser2'
+  });
+
   await Comment.create({ 
     username: 'testingUser1',
     videoId:  video1.id,
@@ -85,6 +92,41 @@ async function commonBeforeAll() {
     videoId:  video1.id,
     content: 'Oh look, another comment'
   });
+
+  await View.create({ 
+    username: 'testingUser1',
+    videoId:  video1.id,
+  });
+  await View.create({ 
+    username: 'testingUser1',
+    videoId:  video1.id,
+  });
+  await View.create({ 
+    username: 'testingUser2',
+    videoId:  video1.id,
+  });
+  await View.create({ 
+    username: 'testingUser1',
+    videoId:  video2.id,
+  });
+  await View.create({ 
+    username: 'testingUser2',
+    videoId:  video2.id,
+  });
+
+  await VideoLike.create({ 
+    username: 'testingUser1',
+    videoId:  video1.id,
+  });
+  await VideoLike.create({ 
+    username: 'testingUser2',
+    videoId:  video1.id,
+  });
+  await VideoLike.create({ 
+    username: 'testingUser1',
+    videoId:  video2.id,
+  });
+
 }
 
 async function commonBeforeEach() {
