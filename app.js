@@ -5,6 +5,7 @@
 const express = require('express');
 const cors = require('cors');
 
+const { NotFoundError } = require('./expressError');
 const { authenticateJWT } = require("./middleware/auth");
 const authRoutes = require('./routes/auth');
 const usersRoutes = require('./routes/users');
@@ -13,15 +14,14 @@ const commentsRoutes = require('./routes/comments');
 const likesRoutes = require('./routes/likes');
 const subscriptionsRoutes = require('./routes/subscriptions');
 const viewsRoutes = require('./routes/views');
-
-
-// const morgan = require("morgan"); not sure I want this yet
+const morgan = require("morgan");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(authenticateJWT);
+app.use(morgan('tiny'));
 app.use('/auth', authRoutes);
 app.use('/users', usersRoutes);
 app.use('/videos', videosRoutes);
