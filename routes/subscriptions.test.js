@@ -12,7 +12,6 @@ const {
   u1Token,
   u2Token
 } = require("./_testCommonSetup");
-const { UnauthorizedError } = require("../expressError.js");
 
 beforeAll(commonBeforeAll);
 beforeEach(commonBeforeEach);
@@ -20,28 +19,6 @@ afterEach(commonAfterEach);
 afterAll(commonAfterAll);
 
 
-const getVideos = async () => {
-  const videoIdResuls = await db.query(`SELECT * FROM videos ORDER BY created_at`);
-  return videoIdResuls.rows;
-};
-
-const getViews = async () => {
-  const viewResuls = await db.query(`SELECT * FROM views ORDER BY created_at`);
-  return viewResuls.rows;
-};
-
-const getLikes = async () => {
-  const likeResuls = await db.query(`SELECT * FROM videoLikes ORDER BY created_at`);
-  return likeResuls.rows;
-};
-
-const getComments = async () => {
-  const commentResuls = await db.query(`
-    SELECT id, created_at AS "createdAt", video_id AS "videoId", username, content 
-    FROM comments 
-    ORDER BY created_at`);
-  return commentResuls.rows;
-};
 
 /************************************** POST /subscriptions */
 describe("POST /subscriptions", () => {
