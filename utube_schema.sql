@@ -64,7 +64,7 @@ CREATE TABLE VideoLikes (
 CREATE TABLE Views (
   id SERIAL PRIMARY KEY,
   created_at timestamp NOT NULL DEFAULT NOW(),
-  username varchar(20) NOT NULL 
+  username varchar(20) 
     REFERENCES Users ON DELETE CASCADE,
   video_id INTEGER NOT NULL
     REFERENCES Videos ON DELETE CASCADE    
