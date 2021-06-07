@@ -19,7 +19,7 @@ class View {
     const videoIdCheck = await db.query(
       `SELECT * FROM videos WHERE id=$1`, [videoId]);
 
-    if(!usernameCheck.rows.length || !videoIdCheck.rows.length) {
+    if( ( username && !usernameCheck.rows.length ) || !videoIdCheck.rows.length) {
       throw new NotFoundError('video id or username invalid.');
     }  
 
@@ -51,6 +51,17 @@ class View {
   static async getAll(filter={}) {
     if ( Object.keys(filter).length && !(filter.username || filter.videoId) ){
       throw new BadRequestError("Filter must be either 'username' or 'videoId'");  
+    }
+
+    const userCheck = await db.query(`SELECT * FROM users WHERE username=$1`, [filter.username]);
+    const videoCheck = await db.query(`SELECT * FROM videos WHERE id=$1`, [filter.videoId]);
+
+    if(filter.username && !userCheck.rows.length) {
+      throw new NotFoundError(`No user with username: ${filter.username} found`);
+    }
+    
+    if(filter.videoId && !videoCheck.rows.length) {
+      throw new NotFoundError(`No video with id: ${filter.videoId} found`);
     }
     
     let conditinalSQLInsert = { 
