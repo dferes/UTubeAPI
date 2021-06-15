@@ -79,7 +79,10 @@ VALUES ('testUser1', 'password', 'Mr.', 'Test', 'testemai1@gmail.com'),
 INSERT INTO Videos (title, description, url, username)
 VALUES ('Kitties', 'A cat video', 'https://google.com', 'testUser1'),
        ('Dogs', 'A video of dogs', 'https://facebook.com', 'testUser2'),
-       ('Turtles', 'A turtle video', 'https://twitter.com', 'testUser3');
+       ('Turtles', 'A turtle video', 'https://twitter.com', 'testUser3'),
+       ('More Turtles', 'Turtles are awesome and stuff. This is a description about turtles and stuff...yep', 'https://twitter.com/stuff', 'testUser1'),
+       ('More Dogs', 'Dogs are awesome and stuff. This is a description about dogs and stuff...yep', 'https://facebook.com/stuff', 'testUser2'),
+       ('More Cats', 'Cats are awesome and stuff. This is a description about cats and stuff...yep', 'https://google.com/stuff', 'testUser3');
 
 INSERT INTO VideoLikes (username, video_id)
 VALUES ('testUser1', 1),
