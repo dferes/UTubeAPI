@@ -80,6 +80,7 @@ class Video {
     searchQuery += '\nORDER BY created_at\nLIMIT 250';
       
     const result = await db.query(searchQuery);
+    if(result.rows.length) result.rows.map( el => el.createdAt = String(el.createdAt).substring(4, 16));
     return result.rows;
   }
 
@@ -136,13 +137,18 @@ class Video {
       `SELECT id, created_at AS "createdAt", username, content, video_id AS "videoId"
       FROM comments
       WHERE video_id = $1
-      ORDER BY created_at`,
+      ORDER BY created_at DESC`,
       [id]
     );
+
+    if(commentsResult.rows.length) {
+      commentsResult.rows.map( el => el.createdAt = String(el.createdAt).substring(4, 16));
+    }
     
     video.likes = likesResult.rows.map( obj => obj.id);
     video.views = viewsResult.rows.map( obj => obj.id);
     video.comments = commentsResult.rows;
+    video.createdAt = String(video.createdAt).substring(4,16);
 
     return video;
   }

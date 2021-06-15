@@ -36,13 +36,13 @@ const videoDeleteSchema = require('../schemas/videoDeleteSchema.json');
 });
       
       
-/** GET / { username (optional), videoId (optional) } => 
+/** GET / { username (optional), title (optional) } => 
 * {[ 
 *    
 *   { id, createdAt, title, username, url, description, thumbnail_image },...
 * ]}
 *
-* Accepts an optional filter search term 'videoId' or 'username'.
+* Accepts an optional filter search term 'title' or 'username'.
 * Returns a list of all videos if no filter term is provided.
 * If either videoId or username are provided, then Returns all 
 * comments relative to that search term.  
@@ -50,12 +50,13 @@ const videoDeleteSchema = require('../schemas/videoDeleteSchema.json');
 * Authorization required: None**/
 router.get("/", async function (req, res, next) {
   try {
-    const validator = jsonschema.validate(req.body, videoGetSchema);
+    const filterObject = Object.keys(req.body).length? req.body : req.query;
+    const validator = jsonschema.validate(filterObject, videoGetSchema);
     if (!validator.valid) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
     }
-  
+
     const videos = await Video.getAll(validator.instance);
     return res.json({ videos });
   } catch (err) { return next(err); }
