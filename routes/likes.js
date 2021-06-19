@@ -61,7 +61,7 @@ router.get("/", async function (req, res, next) {
 });
         
         
-/** DELETE /[id]  =>  { deleted: (username, videoId) }
+/** DELETE [username, videoId]  =>  { deleted: (username, videoId) }
 *
 * Authorization required: same-user-as: username **/
 router.delete("/", ensureCorrectUser, async function (req, res, next) {
