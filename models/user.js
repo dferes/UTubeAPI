@@ -140,6 +140,7 @@ class User {
     const user = result.rows[0];
 
     if(!user) throw new NotFoundError(`No user with "${username}" found`);
+    user.createdAt = String(user.createdAt).substring(4, 16);
 
     const subscriptionsResult = await db.query(
       `SELECT subscribed_to_username AS "subscribedToUsername"
@@ -164,10 +165,19 @@ class User {
       ORDER BY created_at`,
       [username]
     );
+
+    const videoLikesResult = await db.query(
+      `SELECT video_id AS "videoId"
+      FROM videoLikes
+      WHERE username = $1
+      ORDER BY created_at DESC`,
+      [username]
+    );
     
     user.subscriptions = subscriptionsResult.rows.map( obj => obj.subscribedToUsername);
     user.subscribers = subscribersResult.rows.map( obj => obj.subscriberUsername);
     user.videos = vidoesResult.rows.map( obj => obj.id);
+    user.likes = videoLikesResult.rows.map( obj => obj.videoId); // new feature, needs to be tested
 
     return user;
   }
