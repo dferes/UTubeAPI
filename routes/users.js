@@ -73,9 +73,9 @@ router.get("/", async function (req, res, next) {
     subscribers
 }
 *
-* Authorization required: same user-as: username
+* Authorization required: none
 **/
-router.get("/:username", ensureCorrectUser, async function (req, res, next) {
+router.get("/:username", async function (req, res, next) {  // ------------removed the ensureCorrectUser moddleware, change tests to accomodate this
   try {
     const user = await User.get(req.params.username);
     return res.json({ user });
