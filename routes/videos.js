@@ -44,7 +44,7 @@ const videoDeleteSchema = require('../schemas/videoDeleteSchema.json');
 *
 * Accepts an optional filter search term 'title' or 'username'.
 * Returns a list of all videos if no filter term is provided.
-* If either videoId or username are provided, then Returns all 
+* If either title or username are provided, then Returns all 
 * comments relative to that search term.  
 *
 * Authorization required: None**/
