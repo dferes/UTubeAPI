@@ -16,7 +16,7 @@ const videoDeleteSchema = require('../schemas/videoDeleteSchema.json');
 /** POST / { video }  => { video }
  *
  * Adds a new video via the Video.create method with the data:
- *  { title, description, url, username, thumbnailImage }
+ *  { title, description, url, username }
  *
  * This returns the newly created Video:
  *  { video: { id, created_at, url, title, description, username, thumbnail_image } }
