@@ -19,6 +19,10 @@
         "type": "string",
         "minLength": 1,
         "maxLength": 20  
+      },
+      "thumbnailImage": {
+        "type": "string",
+        "format": "uri"
       }
     },
     "additionalProperties": false,
