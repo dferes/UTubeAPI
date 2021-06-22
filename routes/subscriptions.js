@@ -53,7 +53,9 @@ router.post("/", ensureCorrectUser, async function (req, res, next) {
 * Authorization required: None **/
 router.get("/", async function (req, res, next) {
   try {
-    const validator = jsonschema.validate(req.body, subscriptionGetSchema);
+    const filterObject = Object.keys(req.body).length? req.body : req.query;
+    const validator = jsonschema.validate(filterObject, subscriptionGetSchema);
+
     if (!validator.valid) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
