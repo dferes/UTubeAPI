@@ -95,6 +95,19 @@ class Subscription {
     searchQuery += '\nORDER BY created_at\nLIMIT 500';
       
     const result = await db.query(searchQuery);
+    
+    // Terrible (temporary) solution, but will have to do for now...
+    for ( let el of result.rows ){
+      let res = await db.query(`
+        SELECT avatar_image AS "userAvatar", cover_image AS "userHeader"
+        FROM users
+        WHERE username=$1
+        LIMIT 1`,
+        [el.subscribedToUsername]);
+
+      el.userImages = res.rows[0];
+    }
+
     return result.rows;
   }
 
