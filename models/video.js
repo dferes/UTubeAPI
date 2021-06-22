@@ -13,7 +13,7 @@ class Video {
    *  { id, created_at, url, title, description, username, thumbnail_image }
    */
    static async create(videoData) {
-    const { title, url, description, username } = videoData;
+    const { title, url, description, username, thumbnailImage } = videoData;
 
     const dupCheck = await db.query(
       `SELECT url
@@ -32,11 +32,12 @@ class Video {
         title, 
         url,
         description,
-        username)
-      VALUES ($1,$2,$3,$4)
+        username,
+        thumbnail_image)
+      VALUES ($1,$2,$3,$4,$5)
       RETURNING 
         id, created_at AS "createdAt", url, title, description, username, thumbnail_image AS "thumbnailImage"`,
-      [title, url, description, username]  
+      [title, url, description, username, thumbnailImage]  
     );
     const video = result.rows[0];
 
@@ -102,14 +103,17 @@ class Video {
   static async get(id) {
     const result = await db.query(
       `SELECT 
-        id,
-        created_at AS "createdAt",
-        title,
-        description,
-        url,
-        username,
-        thumbnail_image AS "thumbnailImage"
-      FROM videos
+        v.id,
+        v.created_at AS "createdAt",
+        v.title,
+        v.description,
+        v.url,
+        v.username,
+        v.thumbnail_image AS "thumbnailImage",
+        u.avatar_image AS "userAvatar"
+      FROM videos v
+      INNER JOIN users u
+      ON u.username = v.username
       WHERE id = $1`,
       [id]
     );  
@@ -134,10 +138,18 @@ class Video {
     );
     
     const commentsResult = await db.query(
-      `SELECT id, created_at AS "createdAt", username, content, video_id AS "videoId"
-      FROM comments
+      `SELECT 
+        c.id, 
+        c.created_at AS "createdAt", 
+        c.username, 
+        c.content, 
+        c.video_id AS "videoId",
+        u.avatar_image as "userAvatar"
+      FROM comments c
+      INNER JOIN users u
+      ON u.username = c.username
       WHERE video_id = $1
-      ORDER BY created_at DESC`,
+      ORDER BY c.created_at DESC`,
       [id]
     );
 
