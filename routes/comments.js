@@ -29,8 +29,8 @@ router.post("/", ensureLoggedIn, async function (req, res, next) {
       const errs = validator.errors.map(e => e.stack);
       throw new BadRequestError(errs);
     }
-    
     const comment = await Comment.create(req.body);
+    
     return res.status(201).json({ comment });
   } catch (err) {
     return next(err);
