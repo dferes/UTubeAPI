@@ -73,14 +73,22 @@ describe("findAll", () => {
       id: expect.any(Number),
       createdAt: expect.any(Object),
       subscriberUsername: 'testingUser1',
-      subscribedToUsername: 'testingUser3'
+      subscribedToUsername: 'testingUser3',
+      userImages: {
+        userAvatar: null,
+        userHeader: null
+      }
     });
 
     expect(subscriptions[4]).toEqual({
       id: expect.any(Number),
       createdAt: expect.any(Object),
       subscriberUsername: 'testingUser3',
-      subscribedToUsername: 'testingUser2'
+      subscribedToUsername: 'testingUser2',
+      userImages: {
+        userAvatar: null,
+        userHeader: null
+      }
     });
     expect(subscriptions.length).toEqual(5);
   });
@@ -93,13 +101,21 @@ describe("findAll", () => {
         id: expect.any(Number),
         createdAt: expect.any(Object),
         subscribedToUsername: 'testingUser3',
-        subscriberUsername: 'testingUser1'
+        subscriberUsername: 'testingUser1',
+        userImages: {
+          userAvatar: null,
+          userHeader: null
+        }
       },
       {
         id: expect.any(Number),
         createdAt: expect.any(Object),
         subscribedToUsername: 'testingUser3',
-        subscriberUsername: 'testingUser2'
+        subscriberUsername: 'testingUser2',
+        userImages: {
+          userAvatar: null,
+          userHeader: null
+        }
       }
     ]);
   });
@@ -112,7 +128,11 @@ describe("findAll", () => {
         id: expect.any(Number),
         createdAt: expect.any(Object),
         subscribedToUsername: 'testingUser3',
-        subscriberUsername: 'testingUser1'
+        subscriberUsername: 'testingUser1',
+        userImages: {
+          userAvatar: null,
+          userHeader: null
+        }
       }
     ]);
   });

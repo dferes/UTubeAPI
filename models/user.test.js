@@ -173,7 +173,7 @@ describe("get", () => {
     let user = await User.get("testingUser1");
     expect(user).toEqual({
       username: "testingUser1",
-      createdAt: expect.any(Object),
+      createdAt: expect.any(String),
       firstName: "Tom",
       lastName: "McMiller",
       email: "test1@gmail.com",
@@ -182,7 +182,8 @@ describe("get", () => {
       about: null,
       videos: testUser1Videos,
       subscribers: testUser1Subscribers,
-      subscriptions: testUser1Subscriptions
+      subscriptions: testUser1Subscriptions,
+      likes: expect.any(Array)
     });
   });
 

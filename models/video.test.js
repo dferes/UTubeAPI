@@ -57,7 +57,7 @@ describe("findAll", () => {
     const videos = await Video.getAll();
     expect(videos[0]).toEqual({
       id: expect.any(Number),
-      createdAt: expect.any(Object),
+      createdAt: expect.any(String),
       title: 'Pizza',
       description: 'Pizza and stuff',
       url: 'https://pizza.com',
@@ -66,7 +66,7 @@ describe("findAll", () => {
     });
     expect(videos[1]).toEqual({
       id: expect.any(Number),
-      createdAt: expect.any(Object),
+      createdAt: expect.any(String),
       title: 'Hamburgers',
       description: 'Hamburger and stuff',
       url: 'https://hamburgers.com',
@@ -81,7 +81,7 @@ describe("findAll", () => {
     expect(videos).toEqual([
       {
         id: expect.any(Number),
-        createdAt: expect.any(Object),
+        createdAt: expect.any(String),
         title: 'Pizza',
         description: 'Pizza and stuff',
         url: 'https://pizza.com',
@@ -90,7 +90,7 @@ describe("findAll", () => {
       },
       {  
         id: expect.any(Number),
-        createdAt: expect.any(Object),
+        createdAt: expect.any(String),
         title: 'Hamburgers',
         description: 'Hamburger and stuff',
         url: 'https://hamburgers.com',
@@ -105,7 +105,7 @@ describe("findAll", () => {
     expect(videos).toEqual([
       {
         id: expect.any(Number),
-        createdAt: expect.any(Object),
+        createdAt: expect.any(String),
         title: 'Pizza',
         description: 'Pizza and stuff',
         url: 'https://pizza.com',
@@ -159,15 +159,18 @@ describe("get", () => {
     [testVideoIds[1]]);
   
     let testVideo2Comments = testVideo2CommentsResult.rows;
+    testVideo2Comments.map( el => el.createdAt = String(el.createdAt).substring(4, 16));
     let video = await Video.get(testVideoIds[1]);
+    testVideo2Comments.map( el => (el.userAvatar = null));
 
     expect(video).toEqual({
       id: testVideoIds[1],
-      createdAt: expect.any(Object),
+      createdAt: expect.any(String),
       title: 'Hamburgers',  
       description: 'Hamburger and stuff',
       url: 'https://hamburgers.com',
       username: 'testingUser1',
+      userAvatar: null,
       thumbnailImage: null,  
       likes: testVideo2Likes,
       views: testVideo2Views,
