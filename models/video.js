@@ -78,7 +78,7 @@ class Video {
 
     if(filter.username) searchQuery += conditinalSQLInsert.username;
     else if (filter.title) searchQuery += conditinalSQLInsert.title;
-    searchQuery += '\nORDER BY created_at\nLIMIT 250';
+    searchQuery += '\nORDER BY created_at DESC\nLIMIT 250';
       
     const result = await db.query(searchQuery);
     if(result.rows.length) result.rows.map( el => el.createdAt = String(el.createdAt).substring(4, 16));
