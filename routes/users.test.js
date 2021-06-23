@@ -166,26 +166,12 @@ describe("GET /users/:username", () => {
         about: null,
         subscribers: ['testingUser2', 'testingUser3'],
         subscriptions: ['testingUser2'],
-        videos: [videoIds[0], videoIds[1]]
+        videos: [videoIds[0], videoIds[1]],
+        likes: expect.any(Array)
       }
     });
   });
 
-
-  test(`throws an UnauthorizedError when the username does not match the 
-    token payload`, async () => {
-    const resp = await request(app)
-      .get(`/users/testingUser1`)
-      .set("authorization", `Bearer ${u2Token}`);
-    expect(resp.statusCode).toEqual(401);
-  });
-
-  test(`throws an UnauthorizedError when no token is provided from an anonymous 
-    user`, async () => {
-    const resp = await request(app)
-      .get(`/users/testingUser1`);
-    expect(resp.statusCode).toEqual(401);
-  });
 });
 
 /************************************** PATCH /users/:username */

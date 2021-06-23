@@ -1,6 +1,5 @@
 "use strict";
 
-const db = require("../db.js");
 const app = require("../app");
 const request = require("supertest");
 
@@ -123,25 +122,41 @@ describe("GET /subscriptions", () => {
           createdAt: expect.any(String),
           id: expect.any(Number),
           subscriberUsername: 'testingUser1',
-          subscribedToUsername: 'testingUser2'
+          subscribedToUsername: 'testingUser2',
+          userImages: {
+            userAvatar: null,
+            userHeader: null
+          }
         },
         {
           createdAt: expect.any(String),
           id: expect.any(Number),
           subscriberUsername: 'testingUser3',
-          subscribedToUsername: 'testingUser2'
+          subscribedToUsername: 'testingUser2',
+          userImages: {
+            userAvatar: null,
+            userHeader: null
+          }
         },
         {
           createdAt: expect.any(String),
           id: expect.any(Number),
           subscriberUsername: 'testingUser2',
-          subscribedToUsername: 'testingUser1'
+          subscribedToUsername: 'testingUser1',
+          userImages: {
+            userAvatar: null,
+            userHeader: null
+          }
         },
         {
           createdAt: expect.any(String),
           id: expect.any(Number),
           subscriberUsername: 'testingUser3',
-          subscribedToUsername: 'testingUser1'
+          subscribedToUsername: 'testingUser1',
+          userImages: {
+            userAvatar: null,
+            userHeader: null
+          }
         }
       ]
     });
@@ -159,13 +174,21 @@ describe("GET /subscriptions", () => {
           createdAt: expect.any(String),
           id: expect.any(Number),
           subscriberUsername: 'testingUser2',
-          subscribedToUsername: 'testingUser1'
+          subscribedToUsername: 'testingUser1',
+          userImages: {
+            userAvatar: null,
+            userHeader: null
+          }
         },
         {
           createdAt: expect.any(String),
           id: expect.any(Number),
           subscriberUsername: 'testingUser3',
-          subscribedToUsername: 'testingUser1'
+          subscribedToUsername: 'testingUser1',
+          userImages: {
+            userAvatar: null,
+            userHeader: null
+          }
         }
       ]
     });
@@ -183,13 +206,21 @@ describe("GET /subscriptions", () => {
         createdAt: expect.any(String),
         id: expect.any(Number),
         subscriberUsername: 'testingUser3',
-        subscribedToUsername: 'testingUser2'
+        subscribedToUsername: 'testingUser2',
+        userImages: {
+          userAvatar: null,
+          userHeader: null
+        }
       },
       {
         createdAt: expect.any(String),
         id: expect.any(Number),
         subscriberUsername: 'testingUser3',
-        subscribedToUsername: 'testingUser1'
+        subscribedToUsername: 'testingUser1',
+        userImages: {
+          userAvatar: null,
+          userHeader: null
+        }
       }
     ]
   });

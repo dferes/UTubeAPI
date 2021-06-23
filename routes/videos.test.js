@@ -246,6 +246,7 @@ describe("GET /videos/:id", () => {
         url: 'https://google.com/video-1.mp4',
         description: 'A video I made',
         username: 'testingUser1',
+        userAvatar: null,
         thumbnailImage: null,
         likes: [likes[0].id, likes[1].id],
         views: [views[0].id, views[1].id, views[2].id],
@@ -254,22 +255,25 @@ describe("GET /videos/:id", () => {
             id: expect.any(Number),
             createdAt: expect.any(String),
             videoId: videos[0].id,
-            username: 'testingUser1',
-            content: 'This is my first comment'
-          },
-          {
-            id: expect.any(Number),
-            createdAt: expect.any(String),
-            videoId: videos[0].id,
-            username: 'testingUser1',
-            content: 'This is my second comment'
-          },
-          {
-            id: expect.any(Number),
-            createdAt: expect.any(String),
-            videoId: videos[0].id,
             username: 'testingUser2',
-            content: 'Oh look, another comment'
+            content: 'Oh look, another comment',
+            userAvatar: null
+          },
+          {
+            id: expect.any(Number),
+            createdAt: expect.any(String),
+            videoId: videos[0].id,
+            username: 'testingUser1',
+            content: 'This is my second comment',
+            userAvatar: null
+          },
+          {
+            id: expect.any(Number),
+            createdAt: expect.any(String),
+            videoId: videos[0].id,
+            username: 'testingUser1',
+            content: 'This is my first comment',
+            userAvatar: null
           }
         ]
       }
