@@ -73,9 +73,8 @@ router.get("/", async function (req, res, next) {
     subscribers
 }
 *
-* Authorization required: none
-**/
-router.get("/:username", async function (req, res, next) {  // ------------removed the ensureCorrectUser moddleware, change tests to accomodate this
+* Authorization required: none **/
+router.get("/:username", async function (req, res, next) {
   try {
     const user = await User.get(req.params.username);
     return res.json({ user });
