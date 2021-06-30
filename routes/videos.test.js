@@ -133,10 +133,10 @@ describe("GET /videos", () => {
         {
           createdAt: expect.any(String),
           id: expect.any(Number),
-          title: 'First Video',
-          url: 'https://google.com/video-1.mp4',
-          description: 'A video I made',
-          username: 'testingUser1',
+          title: 'Look A Video',
+          url: 'https://google.com/video-3.mp4',
+          description: 'Just some video',
+          username: 'testingUser2',
           thumbnailImage: null
         },
         {
@@ -151,10 +151,10 @@ describe("GET /videos", () => {
         {
           createdAt: expect.any(String),
           id: expect.any(Number),
-          title: 'Look A Video',
-          url: 'https://google.com/video-3.mp4',
-          description: 'Just some video',
-          username: 'testingUser2',
+          title: 'First Video',
+          url: 'https://google.com/video-1.mp4',
+          description: 'A video I made',
+          username: 'testingUser1',
           thumbnailImage: null
         }
       ]
@@ -174,18 +174,18 @@ describe("GET /videos", () => {
         {
           createdAt: expect.any(String),
           id: expect.any(Number),
-          title: 'First Video',
-          url: 'https://google.com/video-1.mp4',
-          description: 'A video I made',
+          title: 'Second Video',
+          url: 'https://google.com/video-2.mp4',
+          description: 'Another video I made',
           username: 'testingUser1',
           thumbnailImage: null
         },
         {
           createdAt: expect.any(String),
           id: expect.any(Number),
-          title: 'Second Video',
-          url: 'https://google.com/video-2.mp4',
-          description: 'Another video I made',
+          title: 'First Video',
+          url: 'https://google.com/video-1.mp4',
+          description: 'A video I made',
           username: 'testingUser1',
           thumbnailImage: null
         }

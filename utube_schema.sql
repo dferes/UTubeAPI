@@ -13,8 +13,8 @@ CREATE TABLE Users (
   last_name TEXT NOT NULL,
   email TEXT NOT NULL 
     CHECK (position('@' IN email) > 1),
-  avatar_image TEXT,
-  cover_image TEXT,
+  avatar_image TEXT DEFAULT 'http://getdrawings.com/free-icon/default-avatar-icon-68.png',
+  cover_image TEXT DEFAULT 'https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg',
   about TEXT  
 );
 
@@ -25,7 +25,7 @@ CREATE TABLE Videos (
   username varchar(20) NOT NULL
     REFERENCES Users ON DELETE CASCADE,
   url TEXT NOT NULL UNIQUE,
-  thumbnail_image TEXT,
+  thumbnail_image TEXT DEFAULT 'https://thenextdoor.org/wp-content/uploads/2016/11/video_placeholder.jpg',
   description TEXT 
 );
 
