@@ -1,101 +1,345 @@
-YouTube Clone Documentation
+# UTube API Documentation
+
+The UTube Api is a Node/Express application providing a REST
+API that interfaces with a PostgreSQL database using node-postgres.
+
+The entire application is contained within the `app.js` file.
+
+## Schema 
+![Screenshot]UTube_shcema.png
+## Install
+
+    npm install
+
+## Run the app
+
+    nodemon server.js
+
+## Run the tests
+
+    jest -i
+
+# REST API
+
+The REST API endpoints are described below.
+
+## Get list of Users
+
+### Request
+
+`GET /thing/`
+
+    curl -i -H 'Accept: application/json' http://localhost:7000/thing/
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 2
+
+    []
+
+## Create a new Thing
+
+### Request
+
+`POST /thing/`
+
+    curl -i -H 'Accept: application/json' -d 'name=Foo&status=new' http://localhost:7000/thing
+
+### Response
+
+    HTTP/1.1 201 Created
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 201 Created
+    Connection: close
+    Content-Type: application/json
+    Location: /thing/1
+    Content-Length: 36
+
+    {"id":1,"name":"Foo","status":"new"}
+
+## Get a specific Thing
+
+### Request
+
+`GET /thing/id`
+
+    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 36
+
+    {"id":1,"name":"Foo","status":"new"}
+
+## Get a non-existent Thing
+
+### Request
+
+`GET /thing/id`
+
+    curl -i -H 'Accept: application/json' http://localhost:7000/thing/9999
+
+### Response
+
+    HTTP/1.1 404 Not Found
+    Date: Thu, 24 Feb 2011 12:36:30 GMT
+    Status: 404 Not Found
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 35
+
+    {"status":404,"reason":"Not found"}
+
+## Create another new Thing
+
+### Request
+
+`POST /thing/`
+
+    curl -i -H 'Accept: application/json' -d 'name=Bar&junk=rubbish' http://localhost:7000/thing
+
+### Response
+
+    HTTP/1.1 201 Created
+    Date: Thu, 24 Feb 2011 12:36:31 GMT
+    Status: 201 Created
+    Connection: close
+    Content-Type: application/json
+    Location: /thing/2
+    Content-Length: 35
+
+    {"id":2,"name":"Bar","status":null}
+
+## Get list of Things again
+
+### Request
+
+`GET /thing/`
+
+    curl -i -H 'Accept: application/json' http://localhost:7000/thing/
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:31 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 74
+
+    [{"id":1,"name":"Foo","status":"new"},{"id":2,"name":"Bar","status":null}]
+
+## Change a Thing's state
+
+### Request
+
+`PUT /thing/:id/status/changed`
+
+    curl -i -H 'Accept: application/json' -X PUT http://localhost:7000/thing/1/status/changed
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:31 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 40
+
+    {"id":1,"name":"Foo","status":"changed"}
+
+## Get changed Thing
+
+### Request
+
+`GET /thing/id`
+
+    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:31 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 40
+
+    {"id":1,"name":"Foo","status":"changed"}
+
+## Change a Thing
+
+### Request
+
+`PUT /thing/:id`
+
+    curl -i -H 'Accept: application/json' -X PUT -d 'name=Foo&status=changed2' http://localhost:7000/thing/1
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:31 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 41
+
+    {"id":1,"name":"Foo","status":"changed2"}
+
+## Attempt to change a Thing using partial params
+
+### Request
+
+`PUT /thing/:id`
+
+    curl -i -H 'Accept: application/json' -X PUT -d 'status=changed3' http://localhost:7000/thing/1
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:32 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 41
+
+    {"id":1,"name":"Foo","status":"changed3"}
+
+## Attempt to change a Thing using invalid params
+
+### Request
+
+`PUT /thing/:id`
+
+    curl -i -H 'Accept: application/json' -X PUT -d 'id=99&status=changed4' http://localhost:7000/thing/1
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:32 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 41
+
+    {"id":1,"name":"Foo","status":"changed4"}
+
+## Change a Thing using the _method hack
+
+### Request
+
+`POST /thing/:id?_method=POST`
+
+    curl -i -H 'Accept: application/json' -X POST -d 'name=Baz&_method=PUT' http://localhost:7000/thing/1
+
+### Response
+
+    HTTP/1.1 200 OK
+    Date: Thu, 24 Feb 2011 12:36:32 GMT
+    Status: 200 OK
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 41
+
+    {"id":1,"name":"Baz","status":"changed4"}
+
+## Change a Thing using the _method hack in the url
+
+### Request
+
+`POST /thing/:id?_method=POST`
+
+    curl -i -H 'Accept: application/json' -X POST -d 'name=Qux' http://localhost:7000/thing/1?_method=PUT
+
+### Response
+
+    HTTP/1.1 404 Not Found
+    Date: Thu, 24 Feb 2011 12:36:32 GMT
+    Status: 404 Not Found
+    Connection: close
+    Content-Type: text/html;charset=utf-8
+    Content-Length: 35
+
+    {"status":404,"reason":"Not found"}
+
+## Delete a Thing
+
+### Request
+
+`DELETE /thing/id`
+
+    curl -i -H 'Accept: application/json' -X DELETE http://localhost:7000/thing/1/
+
+### Response
+
+    HTTP/1.1 204 No Content
+    Date: Thu, 24 Feb 2011 12:36:32 GMT
+    Status: 204 No Content
+    Connection: close
 
 
+## Try to delete same Thing again
 
-Two External APIs will be used:
-    1) Google’s OAuth 2 for client side authentication, which will follow the user flow indicated here:  https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow
+### Request
 
-    2) Cloudinary for uploading videos to cloud storage. Video uploads will be initiated on the client side from React to Cloudinary; by using a file input, a video file can be retrieved from a local machine, at which point a request to the Cloudinary API will be made. The Cloudinary API will then send the client a url once the video is uploaded to their servers. I will be storing this url in our database in the Video table. 
-https://cloudinary.com/documentation
+`DELETE /thing/id`
 
+    curl -i -H 'Accept: application/json' -X DELETE http://localhost:7000/thing/1/
 
-Database Schema v.1
+### Response
 
-Class Models: 
+    HTTP/1.1 404 Not Found
+    Date: Thu, 24 Feb 2011 12:36:32 GMT
+    Status: 404 Not Found
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 35
 
-    1) User
-Methods (all methods are static unless otherwise stated):
-    a) Authenticate:  authenticates a user with a username and password. 
-Returns { username, first_name, last_name, email, about, cover_image, avatar_image, created_at }
+    {"status":404,"reason":"Not found"}
 
-    b) Register: Registers a user with the user information: { username, first_name, last_name, email, avatar_image (optional), cover_image (optional), about (optional)}
-Returns the same user information, if successful.
+## Get deleted Thing
 
-    c) GetAll: Returns all users in the database (limited to the 500 most recent), in the format: 
-[ {id, created_at, username, first_name, last_name, email, avatar_image, cover_image, about, subscriptions, subscribers, videos}, ...]
+### Request
 
-    d) Get: Given a username, returns that user’s data:  
-{ id, created_at, username, first_name, last_name, email, about, cover_image, avatar_image, subscriptions, subscribers, videos }
+`GET /thing/1`
 
-    e) Update: patches current user data, including the columns: first_name, last_name, avatar_image, cover_image, and about. Cannot update the username, email, id, or created_at columns.
+    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
 
-    f) Delete: Given a username, deletes the user from the database.
- 
-    g) Subscribe: Given username1 and username2, subscribes user1 to user2.
+### Response
 
-    h) Unsubscribe: Given username1 and username2, unsubscribes user1 from user2.
+    HTTP/1.1 404 Not Found
+    Date: Thu, 24 Feb 2011 12:36:33 GMT
+    Status: 404 Not Found
+    Connection: close
+    Content-Type: application/json
+    Content-Length: 35
 
-    2) Comment 
-Methods (all methods are static unless otherwise stated):
-    a) Create:  Creates a new comment with the data: 
-{ user_id, video_id, content }
-Returns { id, created_at, user_id, video_id, content }
+    {"status":404,"reason":"Not found"}
 
-    b) getAll: Retrieves all comments relative to the optional filters 
-{ username, video_id } where all comments can be retrieved that belong to either a user or a video.
-Returns: [ {id, created_at, user_id, video_id, content}, ...]
+## Delete a Thing using the _method hack
 
-    c) Get: given a comment id, retrieves a comment with the data: 
-{ id, created_at, user_id, video_id,  content }
+### Request
 
-    d) Edit (stretch): Given a comment Id, patches the “content” column and returns: 
-{ id, created_at, user_id, video_id, content }
+`DELETE /thing/id`
 
-    e) Delete: Given a comment Id, deletes the comment from the database
+    curl -i -H 'Accept: application/json' -X POST -d'_method=DELETE' http://localhost:7000/thing/2/
 
-    3) Video
-Methods: (all methods are static unless otherwise stated)
-    a) Create: Creates a new video from data: 
-{ title, description (optional), url, user_id, thumbnail_image (optional) }
-Returns; { id, created_at, title, description, url, user_id, thumbnail_image}
+### Response
 
-    b) getAll: Retrieves all videos relative to one of the optional filters { user_id, title}; will retrieve all videos in the videos table otherwise (limited to the first 500 most recent videos added to the database). Returns: [ {id, created_at, title, description, url, user_id, thumbnail_image, likes, views, comments}, ...]
- 
-    c) Get: Given a video id, will retrieve a video with the data: {id, created_at, title, description, url, user_id, thumbnail_image, likes, views, comments}.
-
-    d) Update (stretch): Given a video Id, will patch video data. Optional columns that can be updated include { title, description, url,  thumbnail_image, comments }. Returns: 
-{id, created_at, title, description, url, user_id, thumbnail_image, comments, views}.
-
-    e) Delete: Given a video Id, deletes the video from the Video table.
-
-    4) VideoLike 
-Methods (all methods are static unless otherwise stated):
-    a) Create: Creates a new video view from the data: {video_id, user_id}
-
-    b) Get: Given a video like id, retrieves a videoLike. Returns: {id, created_at,  user_id, video_id }.
-
-    c) getAll: Retrieves a list of video likes relative to one of the optional filters: {user_id, video_id}. Returns [ {id, created_at, user_id, video_id}, ...]. If no filters are provided, 500 most recent likes added to the database will be returned.
-
-    d) Unlike: given a VideoLike Id or a (user_id, video_id) pair, removes the like from the videoLike table.
-
-    5) Subscription
-Methods (all methods are static unless otherwise stated):
-    a) Create: Creates a new subscription given the data: {subscriber_id, subscribed_to_id}. Returns: {id, created_at, subscriber_id, subscribed_to_id}.
-
-    b) Get: Given a subscription Id, returns {id, created_at, subscriber_id, subscription_id}.
-
-    c) getAll: Retrieves a list of subscriptions relative to the optional filters: {subscriber_id, subscirbed_to_id}. Returns [ {id, created_at, subsciber_id, subscribed_to_id}, ...]. If no filters are provided, the 500 most recent subscriptions will be returned.
-
-    d) Unsubscribe: Given a subscription id or a (subscription_id, subscribed_to_id), removes the subscription from the database.
-
-    6) View 
-Methods (all methods are static unless otherwise stated):
-    a) Create: given a user_id, video_id, creates a new view. Returns: {id, created_at, user_id, video_id}.
-
-    b) Get: Given a view Id, returns {id, created_at, user_id, video_id}.
-
-    c) getAll: Retrieves a list of views relative to the filters: {user_id, video_id}.
-Returns: [ {id, created_at, user_id, video_id}, ...]. If no filters are provided, then the 500 most recent views will be returned.
+    HTTP/1.1 204 No Content
+    Date: Thu, 24 Feb 2011 12:36:33 GMT
+    Status: 204 No Content
+    Connection: close
 
 
 API Endpoints:
