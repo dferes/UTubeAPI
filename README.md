@@ -21,7 +21,7 @@ The entire application is contained within the `app.js` file.
 
 # REST API
 
-    The REST API endpoints are described below.
+####The REST API endpoints are described below.
 
 ## /users
 
@@ -66,7 +66,7 @@ The entire application is contained within the `app.js` file.
 
 
 ### Get list of all users
-##### Note that these users are sample users and are not initially seeded into the database when the repopsitory is cloned.
+##### Note that these users are sample users and are not initially seeded into the database when the repository is cloned.
 
 #### Request
 
@@ -266,4 +266,220 @@ The entire application is contained within the `app.js` file.
 
     {
       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzA0MjQ3fQ.cukNhxoCtmIXYwOUVDZk8GA4PNqzHrytPK8BIBmWZ7g"
+    }
+
+## /videos
+
+### Creating a new video
+
+#### Request
+
+`POST /videos`
+
+    http://localhost:3001/videos
+
+    {
+        "title": "Test Video",
+        "description": "A test video",
+        "username": "testUser",
+        "url": "https://blah.com/video.mp4"
+    }
+
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc
+
+#### Response
+
+    HTTP/1.1 201 Created
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 186
+    ETag: W/"ba-yJ7rwbutLNknxuOFWjF8jQ4chPc"
+    Date: Thu, 08 Jul 2021 22:38:12 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+        "video": {
+            "id": 3,
+            "createdAt": "2021-07-08T22:38:12.091Z",
+            "url": "https://blah.com/video.mp4",
+            "title": "Test Video",
+            "description": "A test video",
+            "username": "testUser",
+            "thumbnailImage": null
+        }
+    }
+
+### Get a list of all videos
+
+##### Note that these videos are sample videos and are not initially seeded into the database when the repository is cloned.
+
+#### Request
+
+`GET /videos`
+
+    http://localhost:3001/videos
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 788
+    ETag: W/"314-XUJIjNCOF0aaQH4ZF+o7jkzCwwY"
+    Date: Thu, 08 Jul 2021 22:44:14 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "videos": [
+        {
+          "id": 3,
+          "createdAt": "Jul 08 2021 ",
+          "title": "Test Video",
+          "username": "testUser",
+          "url": "https://blah.com/video.mp4",
+          "description": "A test video",
+          "thumbnailImage": null
+        },
+        {
+          "id": 2,
+          "createdAt": "Jul 07 2021 ",
+          "title": "plexus",
+          "username": "Derp23",
+          "url": "https://res.cloudinary.com/dilw67t91/video/upload/v1625691672/ws8luv3ium3ijtldfkdp.mp4",
+          "description": "stuff and things\n",
+          "thumbnailImage": "https://res.cloudinary.com/dilw67t91/video/upload/v1625691672/ws8luv3ium3ijtldfkdp.jpg"
+        },
+        {
+          "id": 1,
+          "createdAt": "Jul 07 2021 ",
+          "title": "stuff",
+          "username": "dferes23",
+          "url": "https://res.cloudinary.com/dilw67t91/video/upload/v1625691616/jnqn92e84oqkekyy5hkk.mp4",
+          "description": "Some Ink",
+          "thumbnailImage": "https://res.cloudinary.com/dilw67t91/video/upload/v1625691616/jnqn92e84oqkekyy5hkk.jpg"
+        }
+      ]
+    }
+
+### Get a video by id
+
+#### Request
+
+`GET /videos/:id`
+
+    http://localhost:3001/videos/2
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 664
+    ETag: W/"298-V2FBauM9q+bmqbR8i789GYjWM8Y"
+    Date: Thu, 08 Jul 2021 22:56:03 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "video": {
+        "id": 2,
+        "createdAt": "Jul 07 2021 ",
+        "title": "plexus",
+        "description": "stuff and things\n",
+        "url": "https://res.cloudinary.com/dilw67t91/video/upload/v1625691672/ws8luv3ium3ijtldfkdp.mp4",
+        "username": "Derp23",
+        "thumbnailImage": "https://res.cloudinary.com/dilw67t91/video/upload/v1625691672/ws8luv3ium3ijtldfkdp.jpg",
+        "userAvatar": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
+        "likes": [1],
+        "views": [1,3,4,5],
+        "comments": [
+          {
+            "id": 1,
+            "createdAt": "Jul 08 2021 ",
+            "username": "dferes23",
+            "content": "Nice video man!!",
+            "videoId": 2,
+            "userAvatar": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png"
+          }
+        ]
+      }
+    }
+
+### Update a video's information
+
+##### Updatable fields include: title, description, url, thumbnailImage.
+
+#### Request
+
+`PATCH /videos/:id`
+   
+    http://localhost:3001/videos/1
+
+    {
+      "username": "testUser",
+      "title": "New Title",
+      "description": "A new description",
+      "url": "https://www.yahoo.com/video-2.mp4",
+      "thumbnailImage": "https://www.thumbnail-images.com/thumb2.jpg"
+   }
+
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 238
+    ETag: W/"ee-1X/qSH03g/QRoildwdPxDz+ozDo"
+    Date: Thu, 08 Jul 2021 23:06:10 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "video": {
+        "id": 1,
+        "createdAt": "2021-07-07T21:00:20.832Z",
+        "title": "New Title",
+        "description": "A new description",
+        "url": "https://www.yahoo.com/video-2.mp4",
+        "username": "testUser",
+        "thumbnailImage": "https://www.thumbnail-images.com/thumb2.jpg"
+      }
+    }
+
+### Delete a video by id
+
+#### Request
+
+`DELETE /videos/:id`
+   
+    http://localhost:3001/videos/1
+
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 15
+    ETag: W/"f-nlhndQBdWQSYlco8dRsrjFSaN1g"
+    Date: Thu, 08 Jul 2021 23:10:46 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "deleted": "1"
     }
