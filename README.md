@@ -5,8 +5,8 @@ API that interfaces with a PostgreSQL database using node-postgres.
 
 The entire application is contained within the `app.js` file.
 
-## Schema 
-![Screenshot]UTube_shcema.png
+## Database Schema 
+<img src="https://raw.githubusercontent.com/dferes/UTubeAPI/main/UTube_schema.png">
 ## Install
 
     npm install
@@ -21,386 +21,249 @@ The entire application is contained within the `app.js` file.
 
 # REST API
 
-The REST API endpoints are described below.
+    The REST API endpoints are described below.
 
-## Get list of Users
+## /users
 
-### Request
+### Create a new user
 
-`GET /thing/`
+#### Request
 
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/
+`POST /users/`
 
-### Response
+    http://localhost:3001/users
 
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 2
+    {
+        "username": "testUser",
+        "password": "password",
+        "firstName": "Some",
+        "lastName": "Guy",
+        "email": "email@gmail.com"
+    }
 
-    []
-
-## Create a new Thing
-
-### Request
-
-`POST /thing/`
-
-    curl -i -H 'Accept: application/json' -d 'name=Foo&status=new' http://localhost:7000/thing
-
-### Response
-
+#### Response
     HTTP/1.1 201 Created
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 201 Created
-    Connection: close
-    Content-Type: application/json
-    Location: /thing/1
-    Content-Length: 36
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 279
+    ETag: W/"117-mL0QP5WkxvPExrA2TEGgRU/zjg4"
+    Date: Wed, 07 Jul 2021 23:44:39 GMT  
+    Connection: keep-alive
+    Keep-Alive: timeout=5
 
-    {"id":1,"name":"Foo","status":"new"}
+    {
+        "user": {
+        "username": "testUser",
+        "createdAt": "2021-07-07T23:44:39.744Z",
+        "firstName": "Some",
+        "lastName": "Guy",
+        "email": "email@gmail.com"
+        },
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc"
+    }
 
-## Get a specific Thing
 
-### Request
 
-`GET /thing/id`
+### Get list of all users
+##### Note that these users are sample users and are not initially seeded into the database when the repopsitory is cloned.
 
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
+#### Request
 
-### Response
+`GET /users/`
+    
+    http://localhost:3001/users
 
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 36
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyMiIsImlhdCI6MTYyNTcwMjA2N30.iMX8aVujjcaVBxgzh1cvelJh1vOjzXhX4umbWO70xOw
 
-    {"id":1,"name":"Foo","status":"new"}
 
-## Get a non-existent Thing
-
-### Request
-
-`GET /thing/id`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/9999
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:30 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Create another new Thing
-
-### Request
-
-`POST /thing/`
-
-    curl -i -H 'Accept: application/json' -d 'name=Bar&junk=rubbish' http://localhost:7000/thing
-
-### Response
-
-    HTTP/1.1 201 Created
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 201 Created
-    Connection: close
-    Content-Type: application/json
-    Location: /thing/2
-    Content-Length: 35
-
-    {"id":2,"name":"Bar","status":null}
-
-## Get list of Things again
-
-### Request
-
-`GET /thing/`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/
-
-### Response
+#### Response
 
     HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 74
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 1347
+    ETag: W/"543-wKpe5pvjgn8o653WMB9AAx89dH0"
+    Date: Thu, 08 Jul 2021 00:00:50 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
 
-    [{"id":1,"name":"Foo","status":"new"},{"id":2,"name":"Bar","status":null}]
+    {
+        "users": [
+            {
+                "username": "dferes23",
+                "createdAt": "2021-07-07T20:34:10.790Z",
+                "firstName": "Dylan",
+                "lastName": "Feres",
+                "email": "email@gmail.com",
+                "avatarImage": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
+                "coverImage": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg",
+                "about": null
+                },
+                {
+                "username": "Derp23",
+                "createdAt": "2021-07-07T21:00:55.877Z",
+                "firstName": "dsfdsf",
+                "lastName": "fff",
+                "email": "fdfdf@gmail.com",
+                "avatarImage": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
+                "coverImage": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg",
+                "about": null
+                },
+                {
+                "username": "testUser",
+                "createdAt": "2021-07-07T23:44:39.744Z",
+                "firstName": "Some",
+                "lastName": "Guy",
+                "email": "email@gmail.com",
+                "avatarImage": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
+                "coverImage": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg",
+                "about": null
+                },
+                {
+                "username": "testUser2",
+                "createdAt": "2021-07-07T23:54:27.798Z",
+                "firstName": "Some",
+                "lastName": "Guy",
+                "email": "email@gmail.com",
+                "avatarImage": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
+                "coverImage": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg",
+                "about": null
+            }
+        ]
+    }
 
-## Change a Thing's state
+### Get a specific user by username
 
-### Request
+#### Request
 
-`PUT /thing/:id/status/changed`
+`GET /user/:username`
 
-    curl -i -H 'Accept: application/json' -X PUT http://localhost:7000/thing/1/status/changed
+    http://localhost:3001/users/testUser
 
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 40
-
-    {"id":1,"name":"Foo","status":"changed"}
-
-## Get changed Thing
-
-### Request
-
-`GET /thing/id`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 40
-
-    {"id":1,"name":"Foo","status":"changed"}
-
-## Change a Thing
-
-### Request
-
-`PUT /thing/:id`
-
-    curl -i -H 'Accept: application/json' -X PUT -d 'name=Foo&status=changed2' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:31 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
-
-    {"id":1,"name":"Foo","status":"changed2"}
-
-## Attempt to change a Thing using partial params
-
-### Request
-
-`PUT /thing/:id`
-
-    curl -i -H 'Accept: application/json' -X PUT -d 'status=changed3' http://localhost:7000/thing/1
-
-### Response
+#### Response
 
     HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 388
+    ETag: W/"184-g1x9AT0ZewSs59Bx58KmQRxISG4"
+    Date: Thu, 08 Jul 2021 00:08:21 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
 
-    {"id":1,"name":"Foo","status":"changed3"}
+    {
+    "user": {
+        "username": "testUser",
+        "createdAt": "Jul 07 2021 ",
+        "firstName": "Some",
+        "lastName": "Guy",
+        "email": "email@gmail.com",
+        "avatarImage": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
+        "coverImage": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg",
+        "about": null,
+        "subscriptions": [],
+        "subscribers": [],
+        "videos": [],
+        "likes": []
+    }
+}
 
-## Attempt to change a Thing using invalid params
+### Update a user's information
 
-### Request
+##### Updatable fields include: firstName, lastName, avatarImage, coverImage, about.
 
-`PUT /thing/:id`
+#### Request
 
-    curl -i -H 'Accept: application/json' -X PUT -d 'id=99&status=changed4' http://localhost:7000/thing/1
+`PATCH /users/:username`
+   
+    http://localhost:3001/users/testUser
 
-### Response
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc
+
+
+#### Response
 
     HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 253
+    ETag: W/"fd-oQFaXo6g1wkd3UggTvyg/YxC6uI"
+    Date: Thu, 08 Jul 2021 00:18:14 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
 
-    {"id":1,"name":"Foo","status":"changed4"}
+    {
+        "user": {
+            "username": "testUser",
+            "createdAt": "2021-07-07T23:44:39.744Z",
+            "firstName": "New",
+            "lastName": "Name",
+            "email": "email@gmail.com",
+            "avatarImage": "https://google.com/someImage.jpg",
+            "coverImage": "https://google.com/someHeader.jpg",
+            "about": "Hello there"
+        }
+    }
 
-## Change a Thing using the _method hack
 
-### Request
+### Delete a user by username
 
-`POST /thing/:id?_method=POST`
+#### Request
 
-    curl -i -H 'Accept: application/json' -X POST -d 'name=Baz&_method=PUT' http://localhost:7000/thing/1
+`DELETE /users/:username`
+   
+    http://localhost:3001/users/testUser
 
-### Response
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc
+
+
+#### Response
 
     HTTP/1.1 200 OK
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 200 OK
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 41
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 22
+    ETag: W/"16-XEU21wezhJnkvzprC3b9eCAIVHo"
+    Date: Thu, 08 Jul 2021 00:21:35 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
 
-    {"id":1,"name":"Baz","status":"changed4"}
-
-## Change a Thing using the _method hack in the url
-
-### Request
-
-`POST /thing/:id?_method=POST`
-
-    curl -i -H 'Accept: application/json' -X POST -d 'name=Qux' http://localhost:7000/thing/1?_method=PUT
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: text/html;charset=utf-8
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Delete a Thing
-
-### Request
-
-`DELETE /thing/id`
-
-    curl -i -H 'Accept: application/json' -X DELETE http://localhost:7000/thing/1/
-
-### Response
-
-    HTTP/1.1 204 No Content
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 204 No Content
-    Connection: close
+    {
+      "deleted": "testUser"
+    }
 
 
-## Try to delete same Thing again
+## /auth
 
-### Request
+### Authorizing a user with username/password
 
-`DELETE /thing/id`
+#### Request
 
-    curl -i -H 'Accept: application/json' -X DELETE http://localhost:7000/thing/1/
+`POST /auth/token`
 
-### Response
+    http://localhost:3001/auth/token
 
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:32 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
+    {
+        "username": "testUser",
+        "password": "password",
+    }
 
-    {"status":404,"reason":"Not found"}
+#### Response
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 147
+    ETag: W/"93-3IxRHaO671VU2+uJU/dup4yl3lM"
+    Date: Thu, 08 Jul 2021 00:30:47 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
 
-## Get deleted Thing
-
-### Request
-
-`GET /thing/1`
-
-    curl -i -H 'Accept: application/json' http://localhost:7000/thing/1
-
-### Response
-
-    HTTP/1.1 404 Not Found
-    Date: Thu, 24 Feb 2011 12:36:33 GMT
-    Status: 404 Not Found
-    Connection: close
-    Content-Type: application/json
-    Content-Length: 35
-
-    {"status":404,"reason":"Not found"}
-
-## Delete a Thing using the _method hack
-
-### Request
-
-`DELETE /thing/id`
-
-    curl -i -H 'Accept: application/json' -X POST -d'_method=DELETE' http://localhost:7000/thing/2/
-
-### Response
-
-    HTTP/1.1 204 No Content
-    Date: Thu, 24 Feb 2011 12:36:33 GMT
-    Status: 204 No Content
-    Connection: close
-
-
-API Endpoints:
-
-    1) /auth
-    a) /token (POST): Given { username, password }, returns a JWT token which can be used to authenticate further requests.
-
-    2) /users
-    a) /register (POST): Given {username, password, first_name, last_name, email}, registers a new user and returns a JWT token to be used to authenticate further requests.  
-
-    b) / (GET): Retrieves a list of all users in the database.
-
-    c) /:username (GET): Given a username, retrieves a user with the given username.
-
-    d) /:username (PATCH): Given a username, updates user data. Data can include {first_name, last_name, avatar_image, cover_image, about}.
-
-    e) /delete/:username (DELETE): Given a username, removes the user from the database. 
-
-    3) /comments
-    a) / (POST): Given { user_id, video_id, content }, creates a new comment.
-
-    b) / (GET): Given one of the optional filters {username, video_id} returns a list of all
- comments relative to the filter used.
-
-    c) /:id (GET): Given a comment id, returns the comment associated with that id.
-
-    d) /edit/:id (PATCH): Given a comment Id, updates the content of that comment.
-
-    e) /delete:/id (DELETE): Given a comment Id, deletes the comment from the database.
-    4) /likes
-    a) / (POST): Given { user_id, video_id }, created a new video like from the specified user.
-
-    b) / (GET): Given the filter “video_id”, retrieves a list of all VideoLikes associated with that video.
-
-    c) /:id (GET): Given a VideoLike Id, retrieves the like associated with the provided id.
-
-    d) /delete/:user_id/:video_id (DELETE): Given the logged in user’s id (user_id) and the video_id, removes the VideoLike from the database.
-
-    5) /subscriptions
-    a) / (POST): Given another user’s username (username2), subscribes the logged in user (username1) to the other user. Both usernames will be sent in the request body, and not as query parameters.
-
-    b) / (GET): Given one of the two filters { subsriber_id, subscribed_to_id }, returns a list of subscriptions associated with the provided filter. Either filter term will be sent in the request body.
-
-    c) /:id (GET): Given a subscription id, retrieves the subscription associated with the provided id.
-
-    d) /delete (DELETE): Given a subscription Id, removes the subscription from the Subscription table. 
-
-    6) /videos
-    a) / (POST): Given { title, description, url, user_id, thumbnail_image}, creates a new video.
-
-    b) / (GET): Given one of the optional filters { user_id, video_id }, retrieves a list of all the videos associated with the filter provided.
-
-    c) /:id (GET): Given a Video Id, retrieves the video associated with the id.
-
-    d) /edit/:id (PATCH): Given a video Id and the optional column names to update, including { title, description, url,  thumbnail_image, comments }, updates the specified columns associated with the video id.
-
-    e) /delete/:id (DELETE): Given a video Id, removes the video from the Video table.
-
-    7) /views
-    a) / (POST): Given { user_id, video_id }, creates a new view.
-
-    b) / (GET): Given one of the filter terms { user_id, video_id } returns a list of all views associated with the filter term.
-
-    c) /:id (GET): Given a View Id, retrieves a video view.
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzA0MjQ3fQ.cukNhxoCtmIXYwOUVDZk8GA4PNqzHrytPK8BIBmWZ7g"
+    }
