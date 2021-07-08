@@ -7,6 +7,7 @@ The entire application is contained within the `app.js` file.
 
 ## Database Schema 
 <img src="https://raw.githubusercontent.com/dferes/UTubeAPI/main/UTube_schema.png">
+
 ## Install
 
     npm install
@@ -21,7 +22,7 @@ The entire application is contained within the `app.js` file.
 
 # REST API
 
-####The REST API endpoints are described below.
+#### The REST API endpoints are described below.
 
 ## /users
 
@@ -34,14 +35,15 @@ The entire application is contained within the `app.js` file.
     http://localhost:3001/users
 
     {
-        "username": "testUser",
-        "password": "password",
-        "firstName": "Some",
-        "lastName": "Guy",
-        "email": "email@gmail.com"
+      "username": "testUser",
+      "password": "password",
+      "firstName": "Some",
+      "lastName": "Guy",
+      "email": "email@gmail.com"
     }
 
 #### Response
+
     HTTP/1.1 201 Created
     X-Powered-By: Express
     Access-Control-Allow-Origin: *
@@ -53,19 +55,20 @@ The entire application is contained within the `app.js` file.
     Keep-Alive: timeout=5
 
     {
-        "user": {
-        "username": "testUser",
-        "createdAt": "2021-07-07T23:44:39.744Z",
-        "firstName": "Some",
-        "lastName": "Guy",
-        "email": "email@gmail.com"
-        },
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc"
+      "user": {
+      "username": "testUser",
+      "createdAt": "2021-07-07T23:44:39.744Z",
+      "firstName": "Some",
+      "lastName": "Guy",
+      "email": "email@gmail.com"
+      },
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc"
     }
 
 
 
 ### Get list of all users
+
 ##### Note that these users are sample users and are not initially seeded into the database when the repository is cloned.
 
 #### Request
@@ -90,48 +93,48 @@ The entire application is contained within the `app.js` file.
     Keep-Alive: timeout=5
 
     {
-        "users": [
-            {
-                "username": "dferes23",
-                "createdAt": "2021-07-07T20:34:10.790Z",
-                "firstName": "Dylan",
-                "lastName": "Feres",
-                "email": "email@gmail.com",
-                "avatarImage": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
-                "coverImage": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg",
-                "about": null
-                },
-                {
-                "username": "Derp23",
-                "createdAt": "2021-07-07T21:00:55.877Z",
-                "firstName": "dsfdsf",
-                "lastName": "fff",
-                "email": "fdfdf@gmail.com",
-                "avatarImage": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
-                "coverImage": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg",
-                "about": null
-                },
-                {
-                "username": "testUser",
-                "createdAt": "2021-07-07T23:44:39.744Z",
-                "firstName": "Some",
-                "lastName": "Guy",
-                "email": "email@gmail.com",
-                "avatarImage": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
-                "coverImage": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg",
-                "about": null
-                },
-                {
-                "username": "testUser2",
-                "createdAt": "2021-07-07T23:54:27.798Z",
-                "firstName": "Some",
-                "lastName": "Guy",
-                "email": "email@gmail.com",
-                "avatarImage": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
-                "coverImage": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg",
-                "about": null
-            }
-        ]
+      "users": [
+        {
+          "username": "dferes23",
+          "createdAt": "2021-07-07T20:34:10.790Z",
+          "firstName": "Dylan",
+          "lastName": "Feres",
+          "email": "email@gmail.com",
+          "avatarImage": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
+          "coverImage": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg",
+          "about": null
+        },
+        {
+          "username": "Derp23",
+          "createdAt": "2021-07-07T21:00:55.877Z",
+          "firstName": "dsfdsf",
+          "lastName": "fff",
+          "email": "fdfdf@gmail.com",
+          "avatarImage": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
+          "coverImage": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg",
+          "about": null
+        },
+        {
+          "username": "testUser",
+          "createdAt": "2021-07-07T23:44:39.744Z",
+          "firstName": "Some",
+          "lastName": "Guy",
+          "email": "email@gmail.com",
+          "avatarImage": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
+          "coverImage": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg",
+          "about": null
+        },
+        {
+          "username": "testUser2",
+          "createdAt": "2021-07-07T23:54:27.798Z",
+          "firstName": "Some",
+          "lastName": "Guy",
+          "email": "email@gmail.com",
+          "avatarImage": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
+          "coverImage": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg",
+          "about": null
+        }
+      ]
     }
 
 ### Get a specific user by username
@@ -155,7 +158,7 @@ The entire application is contained within the `app.js` file.
     Keep-Alive: timeout=5
 
     {
-    "user": {
+      "user": {
         "username": "testUser",
         "createdAt": "Jul 07 2021 ",
         "firstName": "Some",
@@ -168,8 +171,8 @@ The entire application is contained within the `app.js` file.
         "subscribers": [],
         "videos": [],
         "likes": []
+      }
     }
-}
 
 ### Update a user's information
 
@@ -197,16 +200,16 @@ The entire application is contained within the `app.js` file.
     Keep-Alive: timeout=5
 
     {
-        "user": {
-            "username": "testUser",
-            "createdAt": "2021-07-07T23:44:39.744Z",
-            "firstName": "New",
-            "lastName": "Name",
-            "email": "email@gmail.com",
-            "avatarImage": "https://google.com/someImage.jpg",
-            "coverImage": "https://google.com/someHeader.jpg",
-            "about": "Hello there"
-        }
+      "user": {
+          "username": "testUser",
+          "createdAt": "2021-07-07T23:44:39.744Z",
+          "firstName": "New",
+          "lastName": "Name",
+          "email": "email@gmail.com",
+          "avatarImage": "https://google.com/someImage.jpg",
+          "coverImage": "https://google.com/someHeader.jpg",
+          "about": "Hello there"
+      }
     }
 
 
@@ -249,8 +252,8 @@ The entire application is contained within the `app.js` file.
     http://localhost:3001/auth/token
 
     {
-        "username": "testUser",
-        "password": "password",
+      "username": "testUser",
+      "password": "password",
     }
 
 #### Response
@@ -279,10 +282,10 @@ The entire application is contained within the `app.js` file.
     http://localhost:3001/videos
 
     {
-        "title": "Test Video",
-        "description": "A test video",
-        "username": "testUser",
-        "url": "https://blah.com/video.mp4"
+      "title": "Test Video",
+      "description": "A test video",
+      "username": "testUser",
+      "url": "https://blah.com/video.mp4"
     }
 
     Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc
@@ -300,15 +303,15 @@ The entire application is contained within the `app.js` file.
     Keep-Alive: timeout=5
 
     {
-        "video": {
-            "id": 3,
-            "createdAt": "2021-07-08T22:38:12.091Z",
-            "url": "https://blah.com/video.mp4",
-            "title": "Test Video",
-            "description": "A test video",
-            "username": "testUser",
-            "thumbnailImage": null
-        }
+      "video": {
+        "id": 3,
+        "createdAt": "2021-07-08T22:38:12.091Z",
+        "url": "https://blah.com/video.mp4",
+        "title": "Test Video",
+        "description": "A test video",
+        "username": "testUser",
+        "thumbnailImage": null
+      }
     }
 
 ### Get a list of all videos
