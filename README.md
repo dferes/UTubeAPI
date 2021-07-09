@@ -486,3 +486,520 @@ The entire application is contained within the `app.js` file.
     {
       "deleted": "1"
     }
+
+## /comments
+
+### Creating a new comment
+
+#### Request
+
+`POST /comments`
+
+    http://localhost:3001/comments
+
+    {
+      "username": "testUser",
+      "videoId" : 2,
+      "content": "Look, a comment!"
+    }
+
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc
+
+#### Response
+
+    HTTP/1.1 201 Created
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 122
+    ETag: W/"7a-vIBNm1v+p64sej+azJJ9DcnfQ4Y"
+    Date: Fri, 09 Jul 2021 03:33:13 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "comment": {
+        "id": 2,
+        "createdAt": "2021-07-09T03:33:13.640Z",
+        "username": "testUser",
+        "videoId": 2,
+        "content": "Look, a comment!"
+      }
+    }
+
+### Get a list of all comments
+
+##### Note that these comments are sample comments and are not initially seeded into the database when the repository is cloned.
+
+#### Request
+
+`GET /comments`
+
+    http://localhost:3001/comments
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 236
+    ETag: W/"ec-zCvmXiSoehm/1k9fRbn9n1xFQxY"
+    Date: Fri, 09 Jul 2021 03:36:51 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "comments": [
+        {
+          "id": 1,
+          "createdAt": "2021-07-08T22:55:12.449Z",
+          "username": "dferes23",
+          "videoId": 2,
+          "content": "Nice video man!!"
+        },
+        {
+          "id": 2,
+          "createdAt": "2021-07-09T03:33:13.640Z",
+          "username": "testUser",
+          "videoId": 2,
+          "content": "Look, a comment!"
+        }
+      ]
+    }
+
+### Get a comment by id
+
+#### Request
+
+`GET /comments/:id`
+
+    http://localhost:3001/comments/2
+
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc    
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 122
+    ETag: W/"7a-vIBNm1v+p64sej+azJJ9DcnfQ4Y"
+    Date: Fri, 09 Jul 2021 03:45:50 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "comment": {
+        "id": 2,
+        "createdAt": "2021-07-09T03:33:13.640Z",
+        "username": "testUser",
+        "videoId": 2,
+        "content": "Look, a comment!"
+      }
+    }
+
+### Update a video's information
+
+##### The only updatable field is the content of the comment.
+
+#### Request
+
+`PATCH /comments/:id`
+   
+    http://localhost:3001/comments/2
+
+    {
+      "username": "testUser",
+      "content": "This is an edited comment!"
+    }
+
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 132
+    ETag: W/"84-2KQyGujPSO4gN6NEVDF2RF30k2E"
+    Date: Fri, 09 Jul 2021 03:50:18 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "comment": {
+        "id": 2,
+        "createdAt": "2021-07-09T03:33:13.640Z",
+        "username": "testUser",
+        "videoId": 2,
+        "content": "This is an edited comment!"
+      }
+    }
+
+### Delete a comment by id
+
+#### Request
+
+`DELETE /comments/:id`
+   
+    http://localhost:3001/comments/2
+
+    {
+      "username": "testUser"
+    }
+
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 15
+    ETag: W/"f-J4Jd/JVhbaQ6IGOjDlBRxPIpPSw"
+    Date: Fri, 09 Jul 2021 03:57:32 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "deleted": "2"
+    }
+
+## /subscriptions
+
+### Create a new subscription
+
+#### Request
+
+`POST /subscriptions`
+
+    http://localhost:3001/subscriptions
+
+    {
+      "subscriberUsername": "testUser",
+      "subscribedToUsername" : "dferes23"
+    }
+
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc
+
+#### Response
+
+    HTTP/1.1 201 Created
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 121
+    ETag: W/"79-4MusPhsUQ7hgbXdglj1heGwxzMU"
+    Date: Fri, 09 Jul 2021 04:05:09 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "sub": {
+        "id": 2,
+        "createdAt": "2021-07-09T04:05:09.651Z",
+        "subscriberUsername": "testUser",
+        "subscribedToUsername": "dferes23"
+      }
+    }
+
+### Get a list of all comments
+
+##### Note that the following subscriptions are sample subscriptions and are not initially seeded into the database when the repository is cloned.
+
+#### Request
+
+`GET /subscriptions`
+
+    http://localhost:3001/subscriptions
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 654
+    ETag: W/"28e-8j4m/k5S/yEgVlNkz5N2Oy6tf/8"
+    Date: Fri, 09 Jul 2021 04:09:26 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "subs": [
+        {
+          "id": 1,
+          "createdAt": "2021-07-08T22:55:16.108Z",
+          "subscriberUsername": "dferes23",
+          "subscribedToUsername": "Derp23",
+          "userImages": {
+            "userAvatar": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
+            "userHeader": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg"
+          }
+        },
+        {
+          "id": 2,
+          "createdAt": "2021-07-09T04:05:09.651Z",
+          "subscriberUsername": "testUser",
+          "subscribedToUsername": "dferes23",
+          "userImages": {
+            "userAvatar": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
+            "userHeader": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg"
+          }
+        }
+      ]
+    }
+
+
+### Delete a subscription with the composite key ( subscribedToUsername, subscriberUsername )
+
+#### Request
+
+`DELETE /subscriptions`
+   
+    http://localhost:3001/subscriptions
+
+    {
+      "subscriberUsername": "testUser",
+      "subscribedToUsername" : "dferes23"
+    }
+
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 35
+    ETag: W/"23-ZAQLHfJlWQEtgJboFUKuou0c0HQ"
+    Date: Fri, 09 Jul 2021 04:20:13 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "deleted": [ "testUser", "dferes23" ]
+    }
+
+
+## /likes
+
+### Create a new video like
+
+#### Request
+
+`POST /likes`
+
+    http://localhost:3001/likes
+
+    {
+      "username": "testUser",
+      "videoId" : 2
+    }
+
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc
+
+#### Response
+
+    HTTP/1.1 201 Created
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 95
+    ETag: W/"5f-cOQ3EKrSQEoxiq5ydOBGqIGWsuU"
+    Date: Fri, 09 Jul 2021 05:26:07 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "videoLike": {
+        "id": 2,
+        "createdAt": "2021-07-09T05:26:06.973Z",
+        "username": "testUser",
+        "videoId": 2
+  }
+}
+
+### Get a list of all likes
+
+##### Note that the following likes are sample likes and are not initially seeded into the database when the repository is cloned.
+
+#### Request
+
+`GET /likes`
+
+    http://localhost:3001/likes
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 180
+    ETag: W/"b4-mUnVe/1ZVCPiYwmtmNj+xRowRZA"
+    Date: Fri, 09 Jul 2021 05:27:49 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "videoLikes": [
+        {
+          "id": 1,
+          "createdAt": "2021-07-08T22:55:17.269Z",
+          "username": "dferes23",
+          "videoId": 2
+        },
+        {
+          "id": 2,
+          "createdAt": "2021-07-09T05:26:06.973Z",
+          "username": "testUser",
+          "videoId": 2
+        }
+      ]
+    }
+
+
+### Delete a video like with the composite key ( videoId, username )
+
+#### Request
+
+`DELETE /likes`
+   
+    http://localhost:3001/likes
+
+    {
+      "username": "testUser",
+      "videoId": 2
+    }
+
+    Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiaWF0IjoxNjI1NzAxNDc5fQ.FiiYtPjYI_wuWojMKwuf4HDKrgtSXULtg2anDBO5Oyc
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 26
+    ETag: W/"1a-ncVXbRaxVdJqu4F5HsmYLF8NCKU"
+    Date: Fri, 09 Jul 2021 05:31:25 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "deleted": [ "testUser", 2 ]
+    }
+
+## /views
+
+### Create a new video view
+
+##### Note that the username paramater is optional.
+
+#### Request
+
+`POST /views`
+
+    http://localhost:3001/views
+
+    {
+      "username": "testUser",
+      "videoId" : 2
+    }
+
+
+#### Response
+
+    HTTP/1.1 201 Created
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 90
+    ETag: W/"5a-hXavNwJsaIuLzxbMJzNuXPvThoI"
+    Date: Fri, 09 Jul 2021 05:37:33 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "view": {
+        "id": 6,
+        "createdAt": "2021-07-09T05:37:33.684Z",
+        "username": "testUser",
+        "videoId": 2
+      }
+    }
+
+### Get a list of all video views
+
+##### Note that the following views are sample views and are not initially seeded into the database when the repository is cloned.
+
+#### Request
+
+`GET /views`
+
+    http://localhost:3001/views
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 180
+    ETag: W/"b4-mUnVe/1ZVCPiYwmtmNj+xRowRZA"
+    Date: Fri, 09 Jul 2021 05:27:49 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "views": [
+        {
+          "id": 1,
+          "createdAt": "2021-07-07T21:01:25.395Z",
+          "username": "Derp23",
+          "videoId": 2
+        },
+        {
+          "id": 3,
+          "createdAt": "2021-07-07T22:51:45.093Z",
+          "username": null,
+          "videoId": 2
+        },
+        {
+          "id": 4,
+          "createdAt": "2021-07-08T22:54:25.150Z",
+          "username": "Derp23",
+          "videoId": 2
+        },
+        {
+          "id": 5,
+          "createdAt": "2021-07-08T22:55:00.714Z",
+          "username": "dferes23",
+          "videoId": 2
+        },
+        {
+          "id": 6,
+          "createdAt": "2021-07-09T05:37:33.684Z",
+          "username": "testUser",
+          "videoId": 2
+        },
+        {
+          "id": 7,
+          "createdAt": "2021-07-09T05:39:49.241Z",
+          "username": "dferes23",
+          "videoId": 3
+        }
+      ]
+    }
