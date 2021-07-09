@@ -369,7 +369,7 @@ The entire application is contained within the `app.js` file.
       ]
     }
 
-#### Get a list of all videos matching one of the optional filter term: title
+#### Get a list of all videos matching the optional filter term: title
 
 #### Request
 
@@ -407,7 +407,7 @@ The entire application is contained within the `app.js` file.
       ]
     }
 
-#### Get a list of all videos matching one of the optional filter term: username
+#### Get a list of all videos matching the optional filter term: username
 
 #### Request
 
