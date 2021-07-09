@@ -369,6 +369,82 @@ The entire application is contained within the `app.js` file.
       ]
     }
 
+#### Get a list of all videos matching one of the optional filter term: title
+
+#### Request
+
+`GET /videos`
+
+    http://localhost:3001/videos
+
+    { "title": "pl" }
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 321
+    ETag: W/"141-bYxKOWC30RY1/XG1744nj2yyNVk"
+    Date: Fri, 09 Jul 2021 06:09:18 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+
+    {
+      "videos": [
+        {
+          "id": 2,
+          "createdAt": "Jul 07 2021 ",
+          "title": "plexus",
+          "username": "Derp23",
+          "url": "https://res.cloudinary.com/dilw67t91/video/upload/v1625691672/ws8luv3ium3ijtldfkdp.mp4",
+          "description": "stuff and things\n",
+          "thumbnailImage": "https://res.cloudinary.com/dilw67t91/video/upload/v1625691672/ws8luv3ium3ijtldfkdp.jpg"
+        }
+      ]
+    }
+
+#### Get a list of all videos matching one of the optional filter term: username
+
+#### Request
+
+`GET /videos`
+
+    http://localhost:3001/videos
+
+    { "username": "testUser" }
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 177
+    ETag: W/"b1-GwV8O58TKDZqOLnTul2Z4GqY9yw"
+    Date: Fri, 09 Jul 2021 06:10:05 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+
+    {
+      "videos": [
+        {
+          "id": 3,
+          "createdAt": "Jul 08 2021 ",
+          "title": "Test Video",
+          "username": "testUser",
+          "url": "https://blah.com/video.mp4",
+          "description": "A test video",
+          "thumbnailImage": null
+        }
+      ]
+    }
+
 ### Get a video by id
 
 #### Request
@@ -569,6 +645,90 @@ The entire application is contained within the `app.js` file.
       ]
     }
 
+
+### Get a list of all comments matching the optional filter term: videoId
+
+
+#### Request
+
+`GET /comments`
+
+    http://localhost:3001/comments
+
+    {
+      "videoId": 2  
+    }
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 236
+    ETag: W/"ec-J5msFnnpRbvUerBNgdYRH1wA3P8"
+    Date: Fri, 09 Jul 2021 06:18:25 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "comments": [
+        {
+          "id": 1,
+          "createdAt": "2021-07-08T22:55:12.449Z",
+          "username": "dferes23",
+          "videoId": 2,
+          "content": "Nice video man!!"
+        },
+        {
+          "id": 3,
+          "createdAt": "2021-07-09T06:17:55.268Z",
+          "username": "testUser",
+          "videoId": 2,
+          "content": "Look, a comment!"
+        }
+      ]
+    }
+
+### Get a list of all comments matching the optional filter term: username
+
+
+#### Request
+
+`GET /comments`
+
+    http://localhost:3001/comments
+
+    {
+      "username": "testUser"   
+    }
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 125
+    ETag: W/"7d-RdZne4xToYg8bxxN3ugWFqLfcjg"
+    Date: Fri, 09 Jul 2021 06:21:16 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "comments": [
+        {
+          "id": 3,
+          "createdAt": "2021-07-09T06:17:55.268Z",
+          "username": "testUser",
+          "videoId": 2,
+          "content": "Look, a comment!"
+        }
+      ]
+    }
+
 ### Get a comment by id
 
 #### Request
@@ -758,6 +918,81 @@ The entire application is contained within the `app.js` file.
       ]
     }
 
+### Get a list of all comments matching the optional filter term: subscriberUsername
+
+##### When subscriberUsername is provided, returns all subscribedToUsernames that are associated with subscriberUsername.
+
+
+#### Request
+
+`GET /subscriptions`
+
+    http://localhost:3001/subscriptions
+
+    {
+      "subscriberUsername": "testUser"  
+    }
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 333
+    ETag: W/"14d-mrY8AKFpayPRDsB6sVI44EVKfSw"
+    Date: Fri, 09 Jul 2021 06:27:14 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "subs": [
+        {
+          "id": 3,
+          "createdAt": "2021-07-09T06:26:52.627Z",
+          "subscriberUsername": "testUser",
+          "subscribedToUsername": "dferes23",
+          "userImages": {
+            "userAvatar": "https://res.cloudinary.com/dilw67t91/image/upload/v1625689808/scsiu9rey26wplgcdjid.png",
+            "userHeader": "https://i.pinimg.com/originals/d5/cd/ea/d5cdeaeb315597e6e390c8843efb9f76.jpg"
+          }
+        }
+      ]
+    }
+
+### Get a list of all comments matching the optional filter term: subscribedToUsername
+
+##### When subscribedToUsername is provided, returns all subscriberUsernames that are associated with subscribedToUsername.
+
+
+#### Request
+
+`GET /subscriptions`
+
+    http://localhost:3001/subscriptions
+
+    {
+      "subscribedToUsername": "testUser"  
+    }
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 11
+    ETag: W/"b-uPCd9Pe9DQYvZ6OZnF4QawS0z7Q"
+    Date: Fri, 09 Jul 2021 06:29:50 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "subs": []
+    }
+
 
 ### Delete a subscription with the composite key ( subscribedToUsername, subscriberUsername )
 
@@ -838,6 +1073,49 @@ The entire application is contained within the `app.js` file.
 `GET /likes`
 
     http://localhost:3001/likes
+
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 180
+    ETag: W/"b4-mUnVe/1ZVCPiYwmtmNj+xRowRZA"
+    Date: Fri, 09 Jul 2021 05:27:49 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "videoLikes": [
+        {
+          "id": 1,
+          "createdAt": "2021-07-08T22:55:17.269Z",
+          "username": "dferes23",
+          "videoId": 2
+        },
+        {
+          "id": 2,
+          "createdAt": "2021-07-09T05:26:06.973Z",
+          "username": "testUser",
+          "videoId": 2
+        }
+      ]
+    }
+
+### Get a list of all likes matching the optional filter term: videoId
+
+
+#### Request
+
+`GET /likes`
+
+    http://localhost:3001/likes
+
+    {
+      "videoId": 2   
+    }
 
 
 #### Response
@@ -1000,6 +1278,74 @@ The entire application is contained within the `app.js` file.
           "createdAt": "2021-07-09T05:39:49.241Z",
           "username": "dferes23",
           "videoId": 3
+        }
+      ]
+    }
+
+### Get a list of all video views matching the optional filter term: videoId
+
+
+#### Request
+
+`GET /views`
+
+    http://localhost:3001/views
+
+    { "videoId": 3 }
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 180
+    ETag: W/"b4-mUnVe/1ZVCPiYwmtmNj+xRowRZA"
+    Date: Fri, 09 Jul 2021 05:27:49 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "views": [
+        {
+          "id": 7,
+          "createdAt": "2021-07-09T05:39:49.241Z",
+          "username": "dferes23",
+          "videoId": 3
+        }
+      ]
+    }
+
+### Get a list of all video views matching the optional filter term: username
+
+
+#### Request
+
+`GET /views`
+
+    http://localhost:3001/views
+
+    { "username": "testUser" }
+
+#### Response
+
+    HTTP/1.1 200 OK
+    X-Powered-By: Express
+    Access-Control-Allow-Origin: *
+    Content-Type: application/json; charset=utf-8
+    Content-Length: 180
+    ETag: W/"b4-mUnVe/1ZVCPiYwmtmNj+xRowRZA"
+    Date: Fri, 09 Jul 2021 05:27:49 GMT
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+
+    {
+      "views": [
+        {
+          "id": 6,
+          "createdAt": "2021-07-09T05:37:33.684Z",
+          "username": "testUser",
+          "videoId": 2
         }
       ]
     }
