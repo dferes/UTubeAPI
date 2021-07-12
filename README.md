@@ -3,6 +3,8 @@
 The UTube Api is a Node/Express application providing a REST
 API that interfaces with a PostgreSQL database using node-postgres.
 
+Deployed with heroku: https://dylan-feres-utube-api.herokuapp.com/
+
 The entire application is contained within the `app.js` file.
 
 ## Database Schema 
@@ -19,6 +21,10 @@ The entire application is contained within the `app.js` file.
 ## Run the tests
 
     jest -i
+
+## Local url
+
+  localhost:3001/
 
 # REST API
 
