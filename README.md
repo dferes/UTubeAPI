@@ -10,9 +10,26 @@ The entire application is contained within the `app.js` file.
 ## Database Schema 
 <img src="https://raw.githubusercontent.com/dferes/UTubeAPI/main/UTube_schema.png">
 
-## Install
+## To get a local copy up and running, clone this repository:
+  
+    https://github.com/dferes/UTubeAPI.git
+
+## Install ##### Note that `npm` and `postgresql` need to be globally installed on your machine. 
 
     npm install
+
+## Make the database:
+
+    createdb utube_db
+
+## Make a test database:
+
+    createdb utube_test_db
+
+## Seed the database
+##### Make sure you are in the root directory
+
+    psql utube_db < utube_schema.sql
 
 ## Run the app
 
