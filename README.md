@@ -14,7 +14,8 @@ The entire application is contained within the `app.js` file.
   
     https://github.com/dferes/UTubeAPI.git
 
-## Install ##### Note that `npm` and `postgresql` need to be globally installed on your machine. 
+## Install 
+##### Note that `npm` and `postgresql` need to be globally installed on your machine. 
 
     npm install
 
