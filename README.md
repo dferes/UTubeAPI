@@ -877,7 +877,7 @@ The entire application is contained within the `app.js` file.
       }
     }
 
-### Get a list of all comments
+### Get a list of all subscriptions
 
 ##### Note that the following subscriptions are sample subscriptions and are not initially seeded into the database when the repository is cloned.
 
@@ -925,7 +925,7 @@ The entire application is contained within the `app.js` file.
       ]
     }
 
-### Get a list of all comments matching the optional filter term: subscriberUsername
+### Get a list of all subscriptions matching the optional filter term: subscriberUsername
 
 ##### When subscriberUsername is provided, returns all subscribedToUsernames that are associated with subscriberUsername.
 
@@ -968,7 +968,7 @@ The entire application is contained within the `app.js` file.
       ]
     }
 
-### Get a list of all comments matching the optional filter term: subscribedToUsername
+### Get a list of all subscriptions matching the optional filter term: subscribedToUsername
 
 ##### When subscribedToUsername is provided, returns all subscriberUsernames that are associated with subscribedToUsername.
 
